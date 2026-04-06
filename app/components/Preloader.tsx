@@ -13,14 +13,26 @@ export default function Preloader() {
       setPercent((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
-          setTimeout(() => setComplete(true), 500); // Wait bit before fading
+          setTimeout(() => {
+            setComplete(true);
+            document.body.style.overflow = "auto"; // Explicit Release
+            document.documentElement.style.overflow = "auto";
+          }, 500);
           return 100;
         }
         return prev + Math.floor(Math.random() * 4) + 1;
       });
     }, 80);
 
-    return () => clearInterval(interval);
+    // Initial Lock
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      clearInterval(interval);
+      document.body.style.overflow = "auto"; // Final Cleanup
+      document.documentElement.style.overflow = "auto";
+    };
   }, []);
 
   return (

@@ -1,20 +1,25 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Lenis from "@studio-freight/lenis";
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
+  const lenisRef = useRef<Lenis | null>(null);
+
   useEffect(() => {
+    // LUXURY SMOOTH SCROLL (Jesko Jets Style)
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.5, // Longer duration for luxurious damping
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
       orientation: "vertical", 
       gestureOrientation: "vertical", 
       smoothWheel: true, 
       wheelMultiplier: 1, 
-      touchMultiplier: 1.5, 
+      touchMultiplier: 2, 
       infinite: false,
     });
+
+    lenisRef.current = lenis;
 
     function raf(time: number) {
       lenis.raf(time);
@@ -23,13 +28,14 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
     requestAnimationFrame(raf);
 
-    // Ensure initial scroll position is top on reload
-    window.scrollTo(0, 0);
+    // Global Scroll Control for other components
+    (window as any).lenis = lenis;
 
     return () => {
       lenis.destroy();
+      (window as any).lenis = null;
     };
   }, []);
 
-  return <div className="relative z-0 antialiased">{children}</div>;
+  return <div className="relative z-0 antialiased w-full overflow-x-hidden">{children}</div>;
 }
