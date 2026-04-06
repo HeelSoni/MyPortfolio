@@ -13,10 +13,10 @@ export default function ScrollyCanvas() {
   const [loaded, setLoaded] = useState(false);
   const currentFrameRef = useRef(0);
 
-  // EXACT TECHNICAL BRIEF: 500vh parent + sticky h-screen canvas
+  // NATURAL FLOW: 120vh parent so it scrolls up naturally with the page
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end end"]
+    offset: ["start end", "end start"] // Target when it's in view
   });
 
   useEffect(() => {
@@ -64,25 +64,7 @@ export default function ScrollyCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    // Object-fit cover logic
-    const canvasRatio = canvas.width / canvas.height;
-    const imgRatio = img.width / img.height;
-
-    let renderWidth, renderHeight, offsetX, offsetY;
-
-    if (canvasRatio > imgRatio) {
-      renderWidth = canvas.width;
-      renderHeight = canvas.height; // Fill properly
-      offsetX = 0;
-      offsetY = 0;
-    } else {
-      renderWidth = canvas.width;
-      renderHeight = canvas.height;
-      offsetX = 0;
-      offsetY = 0;
-    }
-
-    // High-performance draw
+    // Fill screen logic
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
   };
@@ -90,6 +72,7 @@ export default function ScrollyCanvas() {
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     if (imagesRef.current.length === 0) return;
     
+    // Map the 0-1 progress of the 120vh section to the 128 frames
     const frameIndex = Math.min(
       TOTAL_FRAMES - 1,
       Math.floor(latest * TOTAL_FRAMES)
@@ -104,20 +87,19 @@ export default function ScrollyCanvas() {
   });
 
   return (
-    <div ref={containerRef} className="relative h-[500vh] w-full bg-transparent">
+    <div ref={containerRef} className="relative h-[120vh] w-full bg-transparent overflow-hidden">
       {/* 
-        EXACT BRIEF RESTORATION: Match specific technical requirement.
-        - 500vh parent
-        - Sticky h-screen canvas
-        - 3-Section Overlay (Station 1: 0% / Station 2: 30% / Station 3: 60%)
+        NATURAL SCROLL RESTORATION: Match exact previous intro flow.
+        - Section moves UP with the page (no pinning).
+        - 120vh depth for a fast, cinematic scrub during the transition.
       */}
-      <div className="sticky top-0 h-screen w-full overflow-visible bg-transparent z-10">
+      <div className="relative h-full w-full bg-transparent z-10">
         <canvas
           ref={canvasRef}
           className="absolute inset-0 h-full w-full z-10"
         />
         {/* Pass scrollYProgress to Overlay for synchronized text animations */}
-        <div className="absolute inset-0 z-20 pointer-events-none">
+        <div className="absolute inset-0 z-20 pointer-events-none flex items-center justify-center">
           <Overlay scrollYProgress={scrollYProgress} />
         </div>
       </div>
