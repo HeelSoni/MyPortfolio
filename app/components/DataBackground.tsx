@@ -8,91 +8,100 @@ export default function DataBackground() {
   const time = useTime();
   
   // Parallax for the overall grid
-  const yParallax = useTransform(scrollYProgress, [0, 1], ["0%", "8%"]);
+  const yParallax = useTransform(scrollYProgress, [0, 1], ["0%", "5%"]);
   
-  // Generate random data stream streams
-  const streams = useMemo(() => Array.from({ length: 40 }).map((_, i) => ({
+  // Generate random 3D-moving particles (constellation nodes)
+  const particles = useMemo(() => Array.from({ length: 50 }).map((_, i) => ({
     id: i,
-    left: `${Math.random() * 100}%`,
-    delay: Math.random() * 5,
-    duration: 3 + Math.random() * 4,
-    opacity: 0.05 + Math.random() * 0.1,
-    height: 150 + Math.random() * 200,
+    initialX: Math.random() * 100,
+    initialY: Math.random() * 100,
+    initialZ: Math.random() * 100,
+    duration: 10 + Math.random() * 20,
+    size: 2 + Math.random() * 3,
+    driftX: -20 + Math.random() * 40,
+    driftY: -20 + Math.random() * 40,
   })), []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none -z-50 overflow-hidden bg-[#050508] select-none">
+    <div className="fixed inset-0 pointer-events-none -z-50 overflow-hidden bg-[#050508] select-none perspective-normal">
       
-      {/* Layer 1: Unique Deep-Space Aura (Moving Gradients) */}
+      {/* Layer 1: Enhanced Visible Deep-Space Aura */}
       <motion.div 
         animate={{
-          scale: [1, 1.2, 1],
-          x: [0, 50, 0],
-          y: [0, -30, 0],
+          scale: [1, 1.15, 1],
+          opacity: [0.15, 0.25, 0.15],
         }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-        className="absolute top-[-20%] left-[-20%] w-[140%] h-[140%] opacity-[0.15] blur-[150px] bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.2)_0%,rgba(6,182,212,0.1)_40%,transparent_70%)]"
+        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+        className="absolute top-1/4 left-0 w-full h-[50%] bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.25)_0%,transparent_70%)] blur-[120px]"
       />
       <motion.div 
         animate={{
-          scale: [1, 1.3, 1],
-          x: [0, -40, 0],
-          y: [0, 60, 0],
+          scale: [1, 1.25, 1],
+          opacity: [0.1, 0.2, 0.1],
         }}
-        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-        className="absolute bottom-[-30%] right-[-10%] w-[120%] h-[120%] opacity-[0.1] blur-[180px] bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.2)_0%,rgba(16,185,129,0.05)_50%,transparent_80%)]"
+        transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
+        className="absolute bottom-1/4 right-0 w-[80%] h-[50%] bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.2)_0%,transparent_70%)] blur-[150px]"
       />
 
-      {/* Layer 2: Technical Micro-Grid */}
+      {/* Layer 2: Professional Micro-Grid */}
       <motion.div 
         style={{ y: yParallax }}
-        className="absolute inset-0 opacity-[0.08]"
-        className="data-grid bg-[length:60px_60px]"
+        className="absolute inset-0 data-grid opacity-[0.12]"
       />
 
-      {/* Layer 3: Vertical Flowing Data Streams (Digital Rain Effect) */}
-      <div className="absolute inset-0 mask-[linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]">
-        {streams.map((stream) => (
+      {/* Layer 3: 3D-Moving Particles (Constellation nodes) */}
+      <div className="absolute inset-0">
+        {particles.map((p) => (
           <motion.div
-            key={stream.id}
-            initial={{ y: "-100%" }}
-            animate={{ y: "200%" }}
-            transition={{
-              duration: stream.duration,
-              delay: stream.delay,
-              repeat: Infinity,
-              ease: "linear",
+            key={p.id}
+            initial={{ 
+              x: `${p.initialX}vw`, 
+              y: `${p.initialY}vh`, 
+              z: p.initialZ 
             }}
-            className="absolute w-[1px] bg-gradient-to-b from-transparent via-indigo-500/30 to-transparent"
+            animate={{
+              x: [`${p.initialX}vw`, `${p.initialX + (p.driftX / 2)}vw`, `${p.initialX}vw`],
+              y: [`${p.initialY}vh`, `${p.initialY + (p.driftY / 2)}vh`, `${p.initialY}vh`],
+              opacity: [0.2, 0.5, 0.2],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: p.duration,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute rounded-full bg-indigo-400/[0.4] shadow-[0_0_8px_rgba(99,102,241,0.3)]"
             style={{
-              left: stream.left,
-              height: stream.height,
-              opacity: stream.opacity,
+              width: p.size,
+              height: p.size,
             }}
           />
         ))}
       </div>
 
-      {/* Layer 4: Distant Static Data Points (Stars) */}
-      <div className="absolute inset-0">
-        {Array.from({ length: 30 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-[1px] h-[1px] bg-white rounded-full opacity-[0.15]"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              boxShadow: "0 0 4px rgba(255, 255, 255, 0.4)",
-            }}
-          />
-        ))}
-      </div>
+      {/* Layer 4: Vertical Data Streams (Re-added for "Unique" feel) */}
+      {Array.from({ length: 15 }).map((_, i) => (
+        <motion.div
+          key={`stream-${i}`}
+          initial={{ y: "-100%" }}
+          animate={{ y: "100vh" }}
+          transition={{
+            duration: 5 + Math.random() * 8,
+            repeat: Infinity,
+            ease: "linear",
+            delay: Math.random() * 5,
+          }}
+          className="absolute w-[1px] bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent"
+          style={{
+            left: `${Math.random() * 100}%`,
+            height: "20vh",
+            opacity: 0.1,
+          }}
+        />
+      ))}
 
       {/* Global Vignette Filter */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,rgba(5,5,8,0.7)_90%)]" />
-      
-      {/* Subtle Noise for Texture */}
-      <div className="noise-overlay opacity-[0.03]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(5,5,8,0.8)_100%)]" />
     </div>
   );
 }

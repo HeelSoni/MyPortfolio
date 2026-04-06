@@ -48,7 +48,7 @@ export default function Experience() {
     <section 
       id="experience" 
       ref={containerRef}
-      className="py-32 px-6 container mx-auto max-w-5xl relative"
+      className="py-24 px-6 container mx-auto max-w-5xl relative"
     >
       <div 
         ref={sectionRef}
