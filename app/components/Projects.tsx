@@ -68,7 +68,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
     >
       <a 
         href={project.link}
-        className="flex flex-col h-full bg-white/[0.03] backdrop-blur-[40px] border border-white/[0.1] rounded-[2rem] p-8 md:p-10 transition-all duration-700 hover:shadow-[0_0_60px_rgba(99,102,241,0.2)] hover:translate-y-[-10px] hover:border-indigo-500/50 overflow-hidden min-h-[400px]"
+        className="flex flex-col h-full bg-white/[0.03] backdrop-blur-[40px] border border-white/[0.1] rounded-[2rem] p-6 md:p-8 transition-all duration-700 hover:shadow-[0_0_60px_rgba(99,102,241,0.2)] hover:translate-y-[-10px] hover:border-indigo-500/50 overflow-hidden"
       >
         {/* Neon Gradient Hover Effect */}
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />

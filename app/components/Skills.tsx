@@ -70,14 +70,14 @@ function SkillCard({ category, index, isVisible }: { category: typeof skillCateg
       onMouseMove={handleMouseMove}
       onMouseLeave={() => { x.set(0); y.set(0); }}
       style={{ rotateX: mouseRotateX, rotateY: mouseRotateY, scale: scrollScale, filter: `blur(${blur}px)`, perspective: 1200 }}
-      className={`glass-card rounded-[2.5rem] p-10 md:p-12 shimmer-neon relative group overflow-hidden border border-white/[0.1] hover:border-cyan-500/50 hover:shadow-[0_0_60px_rgba(6,182,212,0.2)] transition-all duration-700 ${
+      className={`glass-card rounded-[2.5rem] p-6 md:p-8 shimmer-neon relative group overflow-hidden border border-white/[0.1] hover:border-cyan-500/50 hover:shadow-[0_0_60px_rgba(6,182,212,0.2)] transition-all duration-700 ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"
       }`}
       transition={{ duration: 1, delay: index * 0.2, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="mb-10 relative z-10">
+      <div className="mb-8 relative z-10">
         <span className="text-xs font-mono tracking-[0.4em] uppercase text-cyan-400 opacity-60 mb-2 block">{category.prefix}</span>
-        <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tighter font-display uppercase group-hover:neon-text-cyan transition-colors duration-500">
+        <h3 className="text-xl md:text-2xl font-bold text-white tracking-tighter font-display uppercase group-hover:neon-text-cyan transition-colors duration-500">
           {category.title}
         </h3>
       </div>
