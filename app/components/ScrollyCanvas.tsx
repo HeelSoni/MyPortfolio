@@ -124,18 +124,17 @@ export default function ScrollyCanvas() {
   };
 
   return (
-    <div ref={containerRef} className="relative h-[600vh] w-full bg-transparent">
-      
+    <div ref={containerRef} className="relative h-[600vh] w-full bg-transparent overflow-visible">
       {/* 
-        PRECISION TECHNICAL RESTORATION:
-        - 600vh sticky parent
-        - Zero-State requestAnimationFrame logic
-        - z-10 Canvas + Sequential Overlay
+        ABSOLUTE STICKY PINNING RESTORATION:
+        - Parent must be relative h-[600vh], NOT overflow: hidden.
+        - Child must be sticky top-0 h-screen w-full.
+        - Canvas must be absolute inset-0 w-full h-full z-10.
       */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden bg-black z-10">
+      <div className="sticky top-0 h-screen w-full overflow-visible bg-black z-10">
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 h-full w-full z-10"
+          className="absolute inset-0 w-full h-full z-10"
         />
         <div className="absolute inset-0 z-20 pointer-events-none">
           <Overlay scrollYProgress={scrollYProgress} />
