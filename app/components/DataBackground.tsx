@@ -42,7 +42,7 @@ export default function DataBackground() {
   })), []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden bg-[#020204] select-none">
+    <div className="fixed inset-0 pointer-events-none z-[-10] overflow-hidden bg-[#020204] select-none">
       
       {/* 
         NEURAL MESH (SVG Lines) - High-End Structural Texture 
