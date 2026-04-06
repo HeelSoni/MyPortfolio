@@ -3,75 +3,52 @@
 import { motion, MotionValue, useTransform } from "framer-motion";
 
 export default function Overlay({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
-  // Station 1: Left Side (0% - 20%)
-  const opacity1 = useTransform(scrollYProgress, [0, 0.10, 0.18, 0.22], [1, 1, 1, 0], { clamp: true });
-  const y1 = useTransform(scrollYProgress, [0, 0.10, 0.18, 0.22], [0, 0, 0, -50], { clamp: true });
+  // Station 1: Center (0% -> ~20%)
+  const opacity1 = useTransform(scrollYProgress, [0, 0.05, 0.15, 0.20], [0, 1, 1, 0], { clamp: true });
+  const y1 = useTransform(scrollYProgress, [0, 0.05, 0.15, 0.20], [20, 0, 0, -20], { clamp: true });
 
-  // Station 2: Right Side (26% - 46%)
-  const opacity2 = useTransform(scrollYProgress, [0.26, 0.30, 0.42, 0.46], [0, 1, 1, 0], { clamp: true });
-  const y2 = useTransform(scrollYProgress, [0.26, 0.30, 0.42, 0.46], [50, 0, 0, -50], { clamp: true });
+  // Station 2: Left Side (30% -> ~50%)
+  const opacity2 = useTransform(scrollYProgress, [0.25, 0.30, 0.45, 0.50], [0, 1, 1, 0], { clamp: true });
+  const y2 = useTransform(scrollYProgress, [0.25, 0.30, 0.45, 0.50], [20, 0, 0, -20], { clamp: true });
 
-  // Station 3: Left Side (50% - 70%)
-  const opacity3 = useTransform(scrollYProgress, [0.50, 0.54, 0.66, 0.70], [0, 1, 1, 0], { clamp: true });
-  const y3 = useTransform(scrollYProgress, [0.50, 0.54, 0.66, 0.70], [50, 0, 0, -50], { clamp: true });
-
-  // Station 4: Right Side (75% - 95%)
-  const opacity4 = useTransform(scrollYProgress, [0.75, 0.79, 0.91, 0.95], [0, 1, 1, 0], { clamp: true });
-  const y4 = useTransform(scrollYProgress, [0.75, 0.79, 0.91, 0.95], [50, 0, 0, -50], { clamp: true });
+  // Station 3: Right Side (60% -> ~80%)
+  const opacity3 = useTransform(scrollYProgress, [0.55, 0.60, 0.75, 0.80], [0, 1, 1, 0], { clamp: true });
+  const y3 = useTransform(scrollYProgress, [0.55, 0.60, 0.75, 0.80], [20, 0, 0, -20], { clamp: true });
 
   return (
     <div className="absolute inset-0 z-10 pointer-events-none container mx-auto">
       
-      {/* 1st Statement - Left */}
+      {/* 1st Station - Center (0%) */}
       <motion.div 
         style={{ opacity: opacity1, y: y1 }}
-        className="absolute top-[40%] md:top-1/2 -translate-y-1/2 left-[2%] md:left-[4%] max-w-[200px] md:max-w-[260px] text-left"
+        className="absolute inset-0 flex flex-col items-center justify-center text-center px-4"
       >
-        <h1 className="font-display text-2xl md:text-3xl font-bold tracking-tight text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] leading-tight selection:bg-cyan-500/30 animate-pulse-subtle">
-          I am Heel Soni.
+        <h1 className="font-display text-4xl md:text-6xl font-bold tracking-tight text-white drop-shadow-2xl leading-tight">
+          Heel Soni. <br />
+          <span className="text-cyan-400">Data Analyst.</span>
         </h1>
-        <p className="mt-3 text-white/80 text-sm md:text-base font-medium drop-shadow-md">
-          A dedicated Data Analysis Specialist.
-        </p>
       </motion.div>
 
-      {/* 2nd Statement - Right */}
+      {/* 2nd Station - Left (30%) */}
       <motion.div 
         style={{ opacity: opacity2, y: y2 }}
-        className="absolute top-[40%] md:top-1/2 -translate-y-1/2 right-[2%] md:right-[4%] max-w-[200px] md:max-w-[260px] text-right"
+        className="absolute top-1/2 -translate-y-1/2 left-[5%] md:left-[10%] max-w-[300px] md:max-w-[400px] text-left"
       >
-        <h2 className="font-display text-2xl md:text-3xl font-bold text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] leading-tight">
-          Translating chaos into clarity.
+        <h2 className="font-display text-3xl md:text-5xl font-bold text-white drop-shadow-lg leading-tight">
+          I turn raw data <br />
+          <span className="text-cyan-400 font-mono">into decisions.</span>
         </h2>
-        <p className="mt-3 text-white/80 text-sm md:text-base font-medium drop-shadow-md">
-          Parsing monumental datasets to find the invisible.
-        </p>
       </motion.div>
 
-      {/* 3rd Statement - Left */}
+      {/* 3rd Station - Right (60%) */}
       <motion.div 
         style={{ opacity: opacity3, y: y3 }}
-        className="absolute top-[40%] md:top-1/2 -translate-y-1/2 left-[2%] md:left-[4%] max-w-[200px] md:max-w-[260px] text-left"
+        className="absolute top-1/2 -translate-y-1/2 right-[5%] md:right-[10%] max-w-[300px] md:max-w-[400px] text-right"
       >
-        <h2 className="font-display text-2xl md:text-3xl font-bold text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] leading-tight">
-          Uncovering hidden patterns.
+        <h2 className="font-display text-3xl md:text-5xl font-bold text-white drop-shadow-lg leading-tight">
+          Bridging analytics <br />
+          <span className="text-cyan-400 font-mono">& strategy.</span>
         </h2>
-        <p className="mt-3 text-white/80 text-sm md:text-base font-medium drop-shadow-md">
-          Leveraging advanced analytics & mathematical modeling.
-        </p>
-      </motion.div>
-
-      {/* 4th Statement - Right */}
-      <motion.div 
-        style={{ opacity: opacity4, y: y4 }}
-        className="absolute top-[40%] md:top-1/2 -translate-y-1/2 right-[2%] md:right-[4%] max-w-[200px] md:max-w-[260px] text-right"
-      >
-        <h2 className="font-display text-2xl md:text-3xl font-bold text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] leading-tight">
-          Empowering decisions.
-        </h2>
-        <p className="mt-3 text-white/80 text-sm md:text-base font-medium drop-shadow-md">
-          Delivering strategic certainty based on exact data.
-        </p>
       </motion.div>
 
     </div>

@@ -13,7 +13,7 @@ export default function ScrollyCanvas() {
   const [loaded, setLoaded] = useState(false);
   const currentFrameRef = useRef(0);
 
-  // CINEMATIC INTRO: 400vh for a snappier, moving flow relative to the total page
+  // EXACT TECHNICAL BRIEF: 500vh parent + sticky h-screen canvas
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -72,18 +72,19 @@ export default function ScrollyCanvas() {
 
     if (canvasRatio > imgRatio) {
       renderWidth = canvas.width;
-      renderHeight = canvas.width / imgRatio;
+      renderHeight = canvas.height; // Fill properly
       offsetX = 0;
-      offsetY = (canvas.height - renderHeight) / 2;
+      offsetY = 0;
     } else {
-      renderWidth = canvas.height * imgRatio;
+      renderWidth = canvas.width;
       renderHeight = canvas.height;
-      offsetX = (canvas.width - renderWidth) / 2;
+      offsetX = 0;
       offsetY = 0;
     }
 
+    // High-performance draw
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(img, offsetX, offsetY, renderWidth, renderHeight);
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
   };
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
@@ -103,10 +104,12 @@ export default function ScrollyCanvas() {
   });
 
   return (
-    <div ref={containerRef} className="relative h-[600vh] w-full bg-transparent">
+    <div ref={containerRef} className="relative h-[500vh] w-full bg-transparent">
       {/* 
-        CINEMATIC RESTORATION: Match exact previous intro flow.
-        Sticky container pins for the scrub, then moves away smoothly after 400vh.
+        EXACT BRIEF RESTORATION: Match specific technical requirement.
+        - 500vh parent
+        - Sticky h-screen canvas
+        - 3-Section Overlay (Station 1: 0% / Station 2: 30% / Station 3: 60%)
       */}
       <div className="sticky top-0 h-screen w-full overflow-visible bg-transparent z-10">
         <canvas
