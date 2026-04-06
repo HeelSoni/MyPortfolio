@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Syne } from "next/font/google";
 import "./globals.css";
-import SmoothScroll from "./components/SmoothScroll";
 import CustomCursor from "./components/CustomCursor";
 import DataBackground from "./components/DataBackground";
 import ScrollProgress from "./components/ScrollProgress";
