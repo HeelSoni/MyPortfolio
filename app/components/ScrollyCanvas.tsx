@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useScroll, useMotionValueEvent } from "framer-motion";
+import { useScroll } from "framer-motion";
 import Overlay from "./Overlay";
 
 const TOTAL_FRAMES = 128;
@@ -13,48 +13,84 @@ export default function ScrollyCanvas() {
   const [loaded, setLoaded] = useState(false);
   const currentFrameRef = useRef(0);
 
-  // EXACT TECHNICAL BRIEF MATCH: 500vh parent + sticky h-screen canvas
+  // PRECISION TECHNICAL BRIEF: 600vh parent + sticky h-screen canvas
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
 
   useEffect(() => {
-    // Preload images
-    let loadedCount = 0;
-    const imgArray: HTMLImageElement[] = [];
-    
-    // Quick load of frame 0 for immediate render
-    const initialImg = new Image();
-    initialImg.src = `/sequence/frame_000_delay-0.062s.png`;
-    initialImg.onload = () => {
-      drawOnCanvas(initialImg);
-    };
-    
-    for (let i = 0; i < TOTAL_FRAMES; i++) {
-      const img = new Image();
-      const paddedIndex = i.toString().padStart(3, "0");
-      img.src = `/sequence/frame_${paddedIndex}_delay-0.062s.png`;
-      img.onload = () => {
-        loadedCount++;
-        if (loadedCount === TOTAL_FRAMES) {
-          setLoaded(true);
+    const loadImages = async () => {
+      // 1. Load frame 0 immediately
+      const frame0 = new Image();
+      frame0.src = `/sequence/frame_000_delay-0.062s.png`;
+      await new Promise((resolve) => {
+        frame0.onload = () => {
+          draw(frame0);
+          resolve(true);
+        };
+      });
+      
+      const imgArray: HTMLImageElement[] = new Array(TOTAL_FRAMES);
+      imgArray[0] = frame0;
+      
+      // 2. Load remaining frames in background batches of 10
+      const BATCH_SIZE = 10;
+      for (let i = 1; i < TOTAL_FRAMES; i += BATCH_SIZE) {
+        const batchPromise = [];
+        for (let j = i; j < Math.min(i + BATCH_SIZE, TOTAL_FRAMES); j++) {
+          const img = new Image();
+          const paddedIndex = j.toString().padStart(3, "0");
+          img.src = `/sequence/frame_${paddedIndex}_delay-0.062s.png`;
+          const promise = new Promise((resolve) => {
+            img.onload = () => {
+              imgArray[j] = img;
+              resolve(true);
+            };
+            img.onerror = resolve; // Continue on error
+          });
+          batchPromise.push(promise);
         }
-      };
-      imgArray.push(img);
-    }
-    imagesRef.current = imgArray;
-    
+        await Promise.all(batchPromise);
+      }
+      
+      imagesRef.current = imgArray;
+      setLoaded(true);
+    };
+
+    loadImages();
+
+    // 3. Precision frame updates via scroll progress (Zero React State)
+    const unsubscribe = scrollYProgress.on("change", (latest) => {
+      if (imagesRef.current.length === 0) return;
+      
+      const frameIndex = Math.min(
+        TOTAL_FRAMES - 1,
+        Math.floor(latest * TOTAL_FRAMES)
+      );
+      
+      if (frameIndex !== currentFrameRef.current) {
+        currentFrameRef.current = frameIndex;
+        if (imagesRef.current[frameIndex]) {
+          requestAnimationFrame(() => draw(imagesRef.current[frameIndex]));
+        }
+      }
+    });
+
     const handleResize = () => {
-      if (imgArray[currentFrameRef.current]) {
-        drawOnCanvas(imgArray[currentFrameRef.current]);
+      if (imagesRef.current[currentFrameRef.current]) {
+        draw(imagesRef.current[currentFrameRef.current]);
       }
     };
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
-  const drawOnCanvas = (img: HTMLImageElement) => {
+    return () => {
+      unsubscribe();
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [scrollYProgress]);
+
+  const draw = (img: HTMLImageElement) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -64,7 +100,7 @@ export default function ScrollyCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    // Object-fit cover logic (All Frames Cover)
+    // ABSOLUTE OBJECT-FIT COVER MATH
     const canvasRatio = canvas.width / canvas.height;
     const imgRatio = img.width / img.height;
 
@@ -86,29 +122,13 @@ export default function ScrollyCanvas() {
     ctx.drawImage(img, offsetX, offsetY, renderWidth, renderHeight);
   };
 
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    if (imagesRef.current.length === 0) return;
-    
-    const frameIndex = Math.min(
-      TOTAL_FRAMES - 1,
-      Math.floor(latest * TOTAL_FRAMES)
-    );
-    
-    if (frameIndex !== currentFrameRef.current && imagesRef.current[frameIndex]) {
-      currentFrameRef.current = frameIndex;
-      requestAnimationFrame(() => {
-        drawOnCanvas(imagesRef.current[frameIndex]);
-      });
-    }
-  });
-
   return (
-    <div ref={containerRef} className="relative h-[500vh] w-full bg-transparent">
+    <div ref={containerRef} className="relative h-[600vh] w-full bg-transparent">
       {/* 
-        EXACT BRIEF MATCH RESTORATION:
-        - 500vh parent
-        - Sticky h-screen canvas (Pins correctly for scrubbing)
-        - 4-Station sequential flow (Synced in Overlay.tsx)
+        PRECISION TECHNICAL RESTORATION:
+        - 600vh parent
+        - Sticky h-screen canvas (No-jank scrubbing)
+        - Sequential Text Overlay on z-20
       */}
       <div className="sticky top-0 h-screen w-full overflow-visible bg-transparent z-10">
         <canvas

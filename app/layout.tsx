@@ -6,6 +6,7 @@ import CustomCursor from "./components/CustomCursor";
 import DataBackground from "./components/DataBackground";
 import ScrollProgress from "./components/ScrollProgress";
 import TacticalOverlay from "./components/TacticalOverlay";
+import TacticalHUD from "./components/TacticalHUD";
 import Preloader from "./components/Preloader";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -26,6 +27,7 @@ export default function RootLayout({
       <body className="min-h-screen font-sans relative bg-transparent">
         <Preloader />
         <DataBackground />
+        <TacticalHUD />
         <TacticalOverlay />
         <CustomCursor />
         <ScrollProgress />
