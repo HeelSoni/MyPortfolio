@@ -6,19 +6,25 @@
   
   --background: #050508;
   --foreground: #ededed;
-  --accent: #4f46e5;
+  
+  /* Neon Palette */
+  --neon-indigo: #6366f1;
+  --neon-cyan: #06b6d4;
+  --neon-purple: #a855f7;
+  --neon-emerald: #10b981;
 }
 
 :root {
   background-color: var(--background);
   color: var(--foreground);
-  --accent-glow: rgba(79, 70, 229, 0.15);
+  --accent-glow-primary: rgba(99, 102, 241, 0.4);
+  --accent-glow-secondary: rgba(6, 182, 212, 0.4);
   
   /* Fluid Typography with clamp() */
-  --font-h1: clamp(2.5rem, 10vw, 5rem);
-  --font-h2: clamp(2rem, 8vw, 4rem);
+  --font-h1: clamp(2.5rem, 10vw, 5.5rem);
+  --font-h2: clamp(2rem, 8vw, 4.5rem);
   --font-h3: clamp(1.5rem, 6vw, 3rem);
-  --font-body: clamp(0.9rem, 2vw, 1.1rem);
+  --font-body: clamp(0.9rem, 2vw, 1.15rem);
 }
 
 @layer base {
@@ -38,11 +44,11 @@
     color: var(--foreground);
   }
   
-  h1 { font-size: var(--font-h1); font-family: var(--font-display); }
-  h2 { font-size: var(--font-h2); font-family: var(--font-display); }
-  h3 { font-size: var(--font-h3); font-family: var(--font-display); }
+  h1 { font-family: var(--font-display); font-weight: 800; }
+  h2 { font-family: var(--font-display); font-weight: 800; }
+  h3 { font-family: var(--font-display); font-weight: 700; }
 
-  /* Disable custom cursor on touch */
+  /* Fallback cursor for touch */
   @media (pointer: coarse) {
     html { cursor: auto; }
   }
@@ -54,48 +60,81 @@
   gap: 1.5rem;
 }
 
-/* Glassmorphism utility */
+/* 
+ * Neon Utilities
+ */
+.neon-border-indigo {
+  border: 1px solid rgba(99, 102, 241, 0.1);
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.neon-border-indigo:hover {
+  border: 1px solid var(--neon-indigo);
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.3), inset 0 0 10px rgba(99, 102, 241, 0.1);
+}
+
+.neon-border-cyan {
+  border: 1px solid rgba(6, 182, 212, 0.1);
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.neon-border-cyan:hover {
+  border: 1px solid var(--neon-cyan);
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.3), inset 0 0 10px rgba(6, 182, 212, 0.1);
+}
+
+.neon-text-indigo {
+  color: var(--neon-indigo);
+  text-shadow: 0 0 8px rgba(99, 102, 241, 0.6);
+}
+
+.neon-text-cyan {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 8px rgba(6, 182, 212, 0.6);
+}
+
+/* Glassmorphism Refined with Neon Hints */
 .glass-card {
   background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Shimmer / Scan line animation */
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+/* Shimmer scan line (neon tint) */
+@keyframes neon-shimmer {
+  0% { transform: translate3d(-100%, 0, 0); }
+  100% { transform: translate3d(100%, 0, 0); }
 }
 
-.shimmer-bg {
-  position: relative;
-  overflow: hidden;
-}
-
-.shimmer-bg::after {
+.shimmer-neon::after {
   content: '';
   position: absolute;
-  top: 0; 
-  left: 0; 
-  width: 100%; 
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.03),
-    transparent
-  );
-  animation: shimmer 5s infinite linear;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.05), transparent);
+  animation: neon-shimmer 6s infinite linear;
 }
 
-/* Noise filter */
+/* Noise overlay */
 .noise-overlay {
-  position: absolute; 
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Ffilter id='noiseFilter'%3E%3Cferefine baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.05; 
-  pointer-events: none; 
-  mix-blend-mode: overlay;
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Ffilter id='noiseFilter'%3E%3Cferefine baseFrequency='0.6' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.04; pointer-events: none; mix-blend-mode: overlay;
+}
+
+/* 
+ * Smooth Scroll Buffer 
+ */
+[data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-smooth {
+  height: auto;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
