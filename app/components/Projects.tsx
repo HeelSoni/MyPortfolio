@@ -121,7 +121,7 @@ export default function Projects() {
            viewport={{ once: true }}
            transition={{ duration: 1, ease: "easeOut" }}
         >
-          <span className="text-cyan-400 text-sm font-mono tracking-[0.5em] uppercase mb-4 block font-bold drop-shadow-[0_0_10px_rgba(6,182,212,0.4)]">Selected Work</span>
+          <span className="text-cyan-400 text-lg font-sans font-bold tracking-tight mb-4 block drop-shadow-[0_0_8px_rgba(6,182,212,0.3)] uppercase">Selected Work</span>
           <h2 className="font-display text-[var(--font-h1)] font-bold tracking-tighter mb-4 leading-none text-white">
             <ScrambleText text="Selected Works" />
           </h2>
