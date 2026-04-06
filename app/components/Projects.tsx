@@ -43,27 +43,32 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
     offset: ["start end", "end start"]
   });
 
-  // SUBTLE 3D Perspective Rotation on Scroll (Scaled back for "Normal" professional look)
-  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [6, 0, -6]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.4, 1, 1, 0.4]);
-  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.97, 1, 1, 0.97]);
+  // KINETIC MOTION: Mask Reveal + Subtle Skew + Perspective
+  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [10, 0, -10]);
+  const yReveal = useTransform(scrollYProgress, [0, 0.3], [100, 0]);
+  const skewY = useTransform(scrollYProgress, [0, 0.5, 1], [-2, 0, 2]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.9, 1, 1, 0.9]);
   
-  const springRotateX = useSpring(rotateX, { stiffness: 120, damping: 25 });
+  const springRotateX = useSpring(rotateX, { stiffness: 100, damping: 30 });
+  const springSkewY = useSpring(skewY, { stiffness: 100, damping: 30 });
 
   return (
     <motion.div
       ref={cardRef}
       style={{ 
         rotateX: springRotateX,
+        skewY: springSkewY,
+        y: yReveal,
         opacity,
         scale,
-        perspective: 1800
+        perspective: 2000
       }}
       className="group relative h-full"
     >
       <a 
         href={project.link}
-        className="flex flex-col h-full bg-white/[0.02] backdrop-blur-2xl border border-white/[0.08] rounded-[1.5rem] p-7 md:p-8 transition-all duration-700 hover:shadow-[0_0_40px_rgba(99,102,241,0.12)] hover:translate-y-[-5px] hover:border-indigo-500/30 overflow-hidden min-h-[360px]"
+        className="flex flex-col h-full bg-white/[0.03] backdrop-blur-[40px] border border-white/[0.1] rounded-[2rem] p-8 md:p-10 transition-all duration-700 hover:shadow-[0_0_60px_rgba(99,102,241,0.2)] hover:translate-y-[-10px] hover:border-indigo-500/50 overflow-hidden min-h-[400px]"
       >
         {/* Neon Gradient Hover Effect */}
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />

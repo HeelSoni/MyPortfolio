@@ -35,7 +35,8 @@ function SkillCard({ category, index, isVisible }: { category: typeof skillCateg
     target: cardRef,
     offset: ["start end", "end start"]
   });
-  const scrollScale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.95, 1, 1, 0.95]);
+  const scrollScale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.85, 1, 1, 0.85]);
+  const blur = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [10, 0, 0, 10]);
 
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
     if (!cardRef.current) return;
@@ -49,11 +50,11 @@ function SkillCard({ category, index, isVisible }: { category: typeof skillCateg
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={() => { x.set(0); y.set(0); }}
-      style={{ rotateX: mouseRotateX, rotateY: mouseRotateY, scale: scrollScale, perspective: 1000 }}
-      className={`glass-card rounded-[2rem] p-8 md:p-10 shimmer-neon relative group overflow-hidden border border-white/[0.08] hover:border-cyan-500/40 hover:shadow-[0_0_40px_rgba(6,182,212,0.1)] transition-all duration-700 ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+      style={{ rotateX: mouseRotateX, rotateY: mouseRotateY, scale: scrollScale, filter: `blur(${blur}px)`, perspective: 1200 }}
+      className={`glass-card rounded-[2.5rem] p-10 md:p-12 shimmer-neon relative group overflow-hidden border border-white/[0.1] hover:border-cyan-500/50 hover:shadow-[0_0_60px_rgba(6,182,212,0.2)] transition-all duration-700 ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"
       }`}
-      transition={{ duration: 0.8, delay: index * 0.15, ease: [0.21, 0.47, 0.32, 0.98] }}
+      transition={{ duration: 1, delay: index * 0.2, ease: [0.16, 1, 0.3, 1] }}
     >
       <div className="mb-10 relative z-10">
         <span className="text-xs font-mono tracking-[0.4em] uppercase text-cyan-400 opacity-60 mb-2 block">{category.prefix}</span>

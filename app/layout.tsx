@@ -4,6 +4,7 @@ import "./globals.css";
 import SmoothScroll from "./components/SmoothScroll";
 import CustomCursor from "./components/CustomCursor";
 import DataBackground from "./components/DataBackground";
+import ScrollProgress from "./components/ScrollProgress";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const syne = Syne({ subsets: ["latin"], variable: "--font-syne" });
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col font-sans relative">
         <DataBackground />
         <CustomCursor />
+        <ScrollProgress />
         <SmoothScroll>
           {children}
         </SmoothScroll>
