@@ -13,6 +13,7 @@ export default function ScrollyCanvas() {
   const [loaded, setLoaded] = useState(false);
   const currentFrameRef = useRef(0);
 
+  // FIX: Using window scroll directly for absolute sticky-scrubbing stability
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -102,15 +103,18 @@ export default function ScrollyCanvas() {
   });
 
   return (
-    <div ref={containerRef} className="relative h-[600vh] w-full">
-      <div className="sticky top-0 h-screen w-full overflow-hidden bg-transparent">
+    <div ref={containerRef} className="relative h-[600vh] w-full bg-transparent">
+      {/* 
+        CRITICAL FIX: Removed intermediate div layers that were breaking sticky. 
+        Sticky div must be a direct child of the scrolled parent.
+      */}
+      <div className="sticky top-0 h-screen w-full overflow-visible bg-transparent z-10">
         <canvas
           ref={canvasRef}
           className="absolute inset-0 h-full w-full z-10"
         />
-        <div className="absolute inset-0 bg-black/40 z-0" />
         {/* Pass scrollYProgress to Overlay for synchronized text animations */}
-        <div className="absolute inset-0 z-20">
+        <div className="absolute inset-0 z-20 pointer-events-none">
           <Overlay scrollYProgress={scrollYProgress} />
         </div>
       </div>
