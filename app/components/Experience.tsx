@@ -17,7 +17,7 @@ const experiences = [
   },
   {
     title: "B.Tech in Information Technology",
-    company: "XYZ University",
+    company: "CVM University",
     period: "2023 – Present",
     description: "Focusing on database management systems, applied mathematics, and programming fundamentals. Current GPA: 3.8/4.0."
   }
@@ -26,7 +26,11 @@ const experiences = [
 export default function Experience() {
   return (
     <section id="experience" className="py-32 px-6 container mx-auto max-w-4xl relative">
-      <div className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px] pointer-events-none -z-10" />
+      <motion.div 
+        animate={{ x: [0, -50, 50, 0], y: [0, 100, -100, 0] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px] pointer-events-none -z-10" 
+      />
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}

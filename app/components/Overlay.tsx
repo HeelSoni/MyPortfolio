@@ -26,10 +26,10 @@ export default function Overlay({ scrollYProgress }: { scrollYProgress: MotionVa
         className="absolute w-full text-center flex flex-col items-center justify-center"
       >
         <h1 className="font-display text-5xl md:text-8xl font-bold tracking-tighter text-white drop-shadow-xl">
-          Heel Soni<span className="text-white/50">.</span>
+          I am Heel Soni<span className="text-white/50">.</span>
         </h1>
         <p className="mt-6 text-xl md:text-3xl text-white/80 font-light max-w-2xl drop-shadow-md">
-          Data Analyst
+          A Data Analyst
         </p>
       </motion.div>
 
@@ -38,7 +38,7 @@ export default function Overlay({ scrollYProgress }: { scrollYProgress: MotionVa
         className="absolute w-full left-0 md:left-24 text-left flex flex-col items-start justify-center"
       >
         <h2 className="font-display text-4xl md:text-6xl font-medium text-white max-w-2xl drop-shadow-xl leading-tight">
-          I turn raw data into <span className="italic text-white/80">decisions.</span>
+          I uncover hidden patterns in <span className="italic text-white/80">complex datasets.</span>
         </h2>
       </motion.div>
 
@@ -47,8 +47,8 @@ export default function Overlay({ scrollYProgress }: { scrollYProgress: MotionVa
         className="absolute w-full right-0 md:right-24 text-right flex flex-col items-end justify-center"
       >
         <h2 className="font-display text-4xl md:text-6xl font-medium text-white max-w-2xl drop-shadow-xl leading-tight">
-          Bridging the gap between <br/>
-          <span className="text-white/60">analytics and strategy.</span>
+          Empowering decisions with <br/>
+          <span className="text-white/60">actionable, strategic insights.</span>
         </h2>
       </motion.div>
 

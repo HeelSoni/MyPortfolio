@@ -9,35 +9,39 @@ const projects = [
     title: "Customer Churn Prediction",
     description: "Built a machine learning model using Scikit-Learn to predict customer churn with 85% accuracy. Deployed insights into a Power BI dashboard for stakeholders.",
     tags: ["Python", "Scikit-Learn", "Power BI", "SQL"],
-    link: "#",
+    link: "https://github.com/HeelSoni/Customer-Churn-Prediction",
   },
   {
     id: 2,
     title: "Sales Data Pipeline",
     description: "Engineered an automated data pipeline extracting daily sales data, transforming it via Pandas, and loading it into a MySQL data warehouse.",
     tags: ["Python", "Pandas", "MySQL", "ETL"],
-    link: "#",
+    link: "https://github.com/HeelSoni/Sales-Data-Pipeline",
   },
   {
     id: 3,
     title: "Market Basket Analysis",
     description: "Applied Apriori algorithm to grocery sales data to identify product associations, leading to optimized product placement recommendations.",
     tags: ["Python", "Data Mining", "Matplotlib"],
-    link: "#",
+    link: "https://github.com/HeelSoni/Market-Basket-Analysis",
   },
   {
     id: 4,
     title: "Interactive Financial Dashboard",
     description: "Designed a comprehensive Power BI dashboard tracking KPIs, revenue trends, and operational costs across multiple regions.",
     tags: ["Power BI", "DAX", "Data Viz"],
-    link: "#",
+    link: "https://github.com/HeelSoni/Financial-Dashboard",
   }
 ];
 
 export default function Projects() {
   return (
     <section id="work" className="py-32 px-6 container mx-auto max-w-6xl relative">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] md:w-[600px] h-[600px] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none -z-10" />
+      <motion.div 
+        animate={{ x: [0, 80, -80, 0], y: [0, -50, 50, 0], scale: [1, 1.2, 0.9, 1] }}
+        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] md:w-[600px] h-[600px] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none -z-10" 
+      />
       <motion.div 
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -55,6 +59,7 @@ export default function Projects() {
         {projects.map((project, i) => (
           <motion.a
             href={project.link}
+            target="_blank" rel="noopener noreferrer"
             key={project.id}
             initial={{ opacity: 0, y: 50, scale: 0.95 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
