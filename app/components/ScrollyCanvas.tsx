@@ -23,17 +23,19 @@ export default function ScrollyCanvas() {
   // Canvas slides UP off screen near the very end
   const canvasY = useTransform(scrollYProgress, [0.88, 1.0], ['0vh', '-105vh']);
 
-  // ── TEXT STATION 1: Left side (0% – 28%) ──────────────────────────────────
-  const op1 = useTransform(scrollYProgress, [0, 0.05, 0.22, 0.28], [0, 1, 1, 0]);
-  const x1  = useTransform(scrollYProgress, [0, 0.05, 0.22, 0.28], [-30, 0, 0, -30]);
+  // ── TEXT STATION 1: Left side — visible until ~18% page scroll ──────────
+  const op1 = useTransform(scrollYProgress, [0, 0.05, 0.18, 0.24], [0, 1, 1, 0]);
+  const x1  = useTransform(scrollYProgress, [0, 0.05, 0.18, 0.24], [-30, 0, 0, -30]);
 
-  // ── TEXT STATION 2: Right side (33% – 61%) ────────────────────────────────
-  const op2 = useTransform(scrollYProgress, [0.33, 0.38, 0.55, 0.61], [0, 1, 1, 0]);
-  const x2  = useTransform(scrollYProgress, [0.33, 0.38, 0.55, 0.61], [30, 0, 0, 30]);
+  // ── TEXT STATION 2: Right side — visible at ~29% page scroll ─────────────
+  // spacer 0.25→0.30 = fade in, 0.30→0.40 = hold, 0.40→0.44 = fade out
+  const op2 = useTransform(scrollYProgress, [0.25, 0.30, 0.40, 0.44], [0, 1, 1, 0]);
+  const x2  = useTransform(scrollYProgress, [0.25, 0.30, 0.40, 0.44], [30, 0, 0, 30]);
 
-  // ── TEXT STATION 3: Left side (66% – 86%) ────────────────────────────────
-  const op3 = useTransform(scrollYProgress, [0.66, 0.71, 0.82, 0.86], [0, 1, 1, 0]);
-  const x3  = useTransform(scrollYProgress, [0.66, 0.71, 0.82, 0.86], [-30, 0, 0, -30]);
+  // ── TEXT STATION 3: Left side — appears at ~39% page scroll ─────────────
+  // station 2 gone at 0.44, station 3 fades in at 0.44 → perfectly sequential
+  const op3 = useTransform(scrollYProgress, [0.44, 0.50, 0.79, 0.86], [0, 1, 1, 0]);
+  const x3  = useTransform(scrollYProgress, [0.44, 0.50, 0.79, 0.86], [-30, 0, 0, -30]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
