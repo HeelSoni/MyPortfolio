@@ -15,16 +15,14 @@ export default function ScrollyCanvas() {
   const rafId = useRef<number>(0);
 
   /*
-   * offset: ['start start', 'end start']
-   * 0 = top of container at top of viewport (page load — frame 0 visible)
-   * 1 = bottom of container at top of viewport (canvas fully scrolled away)
-   *
-   * Result: all 128 frames play as the 100vh canvas scrolls naturally
-   * off screen. Skills section appears immediately after.
+   * 400vh container + sticky canvas:
+   * -- All 128 frames play over 400vh of scroll
+   * -- At ~50% total page scroll, canvas releases & Skills appears
+   * -- No blank gap between hero and content
    */
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start start', 'end start'],
+    offset: ['start start', 'end end'],
   });
 
   useEffect(() => {
@@ -57,7 +55,7 @@ export default function ScrollyCanvas() {
       ctx.drawImage(img, x, y, w, h);
     }
 
-    // Load frame 0 immediately — fullscreen on page load
+    // Load frame 0 immediately — no blank screen on load
     const first = new Image();
     first.src = getFramePath(0);
     frames.current[0] = first;
@@ -67,7 +65,7 @@ export default function ScrollyCanvas() {
       first.onload = () => { frames.current[0] = first; drawFrame(0); };
     }
 
-    // Load remaining frames in batches of 10 in the background
+    // Load remaining frames in batches of 10 in background
     let i = 1;
     function loadBatch() {
       const end = Math.min(i + 10, TOTAL_FRAMES);
@@ -82,7 +80,7 @@ export default function ScrollyCanvas() {
     }
     setTimeout(loadBatch, 300);
 
-    // Scroll drives frames — 60fps via requestAnimationFrame
+    // Scroll → frame index, drawn at 60fps
     const unsubscribe = scrollYProgress.on('change', (v) => {
       const idx = Math.min(TOTAL_FRAMES - 1, Math.round(v * (TOTAL_FRAMES - 1)));
       if (idx === currentFrame.current) return;
@@ -100,23 +98,27 @@ export default function ScrollyCanvas() {
 
   return (
     /*
-     * SCROLL-VIDEO HERO — No sticky, no gap:
-     *
-     * 100vh container (normal page flow, not sticky)
-     *   └── 100vh canvas fills it exactly
-     *
-     * On load     → frame 0 shows fullscreen (like video paused on first frame)
-     * On scroll   → frames advance 0→127 as canvas moves up (like video playing)
-     * After 100vh → canvas gone, Skills section appears directly below
+     * 400vh outer — scroll space for all 128 frames
+     * sticky h-screen inner — canvas stays fullscreen during that scroll
+     * Skills / Projects appear only AFTER this 400vh zone is done
      */
     <div
       ref={containerRef}
-      style={{ height: '100vh', position: 'relative', overflow: 'hidden' }}
+      style={{ height: '400vh', position: 'relative' }}
     >
-      <canvas
-        ref={canvasRef}
-        style={{ display: 'block', width: '100%', height: '100%' }}
-      />
+      <div
+        style={{
+          position: 'sticky',
+          top: 0,
+          height: '100vh',
+          width: '100%',
+        }}
+      >
+        <canvas
+          ref={canvasRef}
+          style={{ display: 'block', width: '100%', height: '100%' }}
+        />
+      </div>
     </div>
   );
 }
