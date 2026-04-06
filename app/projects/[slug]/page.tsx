@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
-export default function ProjectPage({ params }: { params: { slug: string } }) {
-  const title = params.slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params;
+  const title = resolvedParams.slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
   
   return (
     <main className="min-h-screen bg-[#050508] text-[#ededed] py-32 px-6 flex flex-col items-center">
