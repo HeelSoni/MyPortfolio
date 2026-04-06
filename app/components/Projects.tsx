@@ -110,7 +110,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
 
 export default function Projects() {
   return (
-    <section id="work" className="py-24 px-6 container mx-auto max-w-6xl relative overflow-hidden perspective-normal">
+    <section id="work" className="py-10 px-6 container mx-auto max-w-6xl relative overflow-hidden perspective-normal">
       {/* Background Subtle Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-indigo-600/5 rounded-full blur-[140px] pointer-events-none -z-10" />
 
@@ -121,9 +121,9 @@ export default function Projects() {
            viewport={{ once: true }}
            transition={{ duration: 1, ease: "easeOut" }}
         >
-          <span className="text-cyan-400 text-lg font-sans font-bold tracking-tight mb-4 block drop-shadow-[0_0_8px_rgba(6,182,212,0.3)] uppercase">Selected Work</span>
-          <h2 className="font-display text-[var(--font-h1)] font-bold tracking-tighter mb-4 leading-none text-white">
-            <ScrambleText text="Selected Works" />
+          <span className="text-cyan-400 text-xs font-mono font-bold tracking-[0.3em] mb-3 block uppercase">SELECTED WORK</span>
+          <h2 className="font-display text-[var(--font-h2)] font-bold tracking-tighter mb-3 leading-none text-white">
+            My Projects
           </h2>
           <p className="text-white/40 text-[var(--font-body)] max-w-2xl font-light mx-auto md:mx-0">
              Architecting strategic data-driven narratives with technical clarity.

@@ -15,7 +15,7 @@ export default function Home() {
       <ScrollyCanvas />
 
       {/* Post-Hero content area - TRANSPARENT TO SHOW DATA MESH */}
-      <div className="relative z-10 bg-transparent flex flex-col gap-12 md:gap-16">
+      <div className="relative z-10 bg-transparent flex flex-col gap-4 md:gap-6">
         <Projects />
         <Skills />
         <Experience />
