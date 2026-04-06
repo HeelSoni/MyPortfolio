@@ -3,21 +3,21 @@
 import { motion, MotionValue, useTransform } from "framer-motion";
 
 export default function Overlay({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
-  // Station 1: Left Side (0% - 20%) -> Starts visible
-  const opacity1 = useTransform(scrollYProgress, [0, 0.15, 0.22], [1, 1, 0]);
-  const y1 = useTransform(scrollYProgress, [0, 0.15, 0.22], [0, 0, -50]);
+  // Station 1: Left Side (0% - 25%) -> Starts heavily visible
+  const opacity1 = useTransform(scrollYProgress, [0, 0.15, 0.22, 0.25], [1, 1, 1, 0]);
+  const y1 = useTransform(scrollYProgress, [0, 0.15, 0.22, 0.25], [0, 0, 0, -50]);
 
-  // Station 2: Right Side (26% - 50%)
-  const opacity2 = useTransform(scrollYProgress, [0.22, 0.28, 0.44, 0.50], [0, 1, 1, 0]);
-  const y2 = useTransform(scrollYProgress, [0.22, 0.28, 0.44, 0.50], [50, 0, 0, -50]);
+  // Station 2: Right Side (25% - 50%)
+  const opacity2 = useTransform(scrollYProgress, [0.25, 0.3, 0.45, 0.50], [0, 1, 1, 0]);
+  const y2 = useTransform(scrollYProgress, [0.25, 0.3, 0.45, 0.50], [50, 0, 0, -50]);
 
-  // Station 3: Left Side (55% - 75%)
-  const opacity3 = useTransform(scrollYProgress, [0.52, 0.58, 0.71, 0.77], [0, 1, 1, 0]);
-  const y3 = useTransform(scrollYProgress, [0.52, 0.58, 0.71, 0.77], [50, 0, 0, -50]);
+  // Station 3: Left Side (50% - 75%)
+  const opacity3 = useTransform(scrollYProgress, [0.50, 0.55, 0.70, 0.75], [0, 1, 1, 0]);
+  const y3 = useTransform(scrollYProgress, [0.50, 0.55, 0.70, 0.75], [50, 0, 0, -50]);
 
-  // Station 4: Right Side (80% - 100%)
-  const opacity4 = useTransform(scrollYProgress, [0.77, 0.83, 0.94, 1], [0, 1, 1, 0]);
-  const y4 = useTransform(scrollYProgress, [0.77, 0.83, 0.94, 1], [50, 0, 0, -50]);
+  // Station 4: Right Side (75% - 100%)
+  const opacity4 = useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [0, 1, 1, 0]);
+  const y4 = useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [50, 0, 0, -50]);
 
   return (
     <div className="absolute inset-0 z-10 pointer-events-none container mx-auto flex items-center">
