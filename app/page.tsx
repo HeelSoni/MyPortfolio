@@ -8,14 +8,14 @@ import DataBackground from "./components/DataBackground";
 
 export default function Home() {
   return (
-    <main className="relative w-full bg-[#050508] text-white selection:bg-white/20">
+    <main className="relative w-full bg-transparent text-white selection:bg-white/20">
       <Navbar />
       
       {/* Hero scrollytelling canvas stays pinned */}
       <ScrollyCanvas />
 
-      {/* Post-Hero content area */}
-      <div className="relative z-20 bg-[#050508]">
+      {/* Post-Hero content area - TRANSPARENT TO SHOW DATA MESH */}
+      <div className="relative z-20 bg-transparent flex flex-col gap-12 md:gap-16">
         <Projects />
         <Skills />
         <Experience />

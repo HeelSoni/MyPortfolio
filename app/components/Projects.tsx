@@ -110,7 +110,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
 
 export default function Projects() {
   return (
-    <section id="work" className="py-24 px-6 container mx-auto max-w-6xl relative overflow-hidden perspective-normal">
+    <section id="work" className="py-16 px-6 container mx-auto max-w-6xl relative overflow-hidden perspective-normal">
       {/* Background Subtle Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-indigo-600/5 rounded-full blur-[140px] pointer-events-none -z-10" />
 
