@@ -13,7 +13,7 @@ export default function ScrollyCanvas() {
   const [loaded, setLoaded] = useState(false);
   const currentFrameRef = useRef(0);
 
-  // FIX: Using window scroll directly for absolute sticky-scrubbing stability
+  // CINEMATIC INTRO: 400vh for a snappier, moving flow relative to the total page
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -103,10 +103,10 @@ export default function ScrollyCanvas() {
   });
 
   return (
-    <div ref={containerRef} className="relative h-[600vh] w-full bg-transparent">
+    <div ref={containerRef} className="relative h-[400vh] w-full bg-transparent">
       {/* 
-        CRITICAL FIX: Removed intermediate div layers that were breaking sticky. 
-        Sticky div must be a direct child of the scrolled parent.
+        CINEMATIC RESTORATION: Match exact previous intro flow.
+        Sticky container pins for the scrub, then moves away smoothly after 400vh.
       */}
       <div className="sticky top-0 h-screen w-full overflow-visible bg-transparent z-10">
         <canvas
