@@ -45,9 +45,9 @@ export default function About() {
             <div className="flex flex-wrap gap-6">
               <motion.a 
                 href="mailto:contact@heelsoni.com" 
-                whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(99, 102, 241, 0.4)" }}
+                whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(236, 72, 153, 0.5)" }}
                 whileTap={{ scale: 0.95 }}
-                className="px-6 py-3 bg-indigo-600 text-white rounded-full font-bold flex items-center gap-3 group transition-all duration-500 relative overflow-hidden"
+                className="px-6 py-3 bg-pink-500 text-white rounded-full font-bold flex items-center gap-3 group transition-all duration-500 relative overflow-hidden"
               >
                 <span className="relative z-10 flex items-center gap-2 text-sm">
                   Initialize Contact
@@ -76,21 +76,25 @@ export default function About() {
             <div className={`relative w-56 h-56 md:w-[300px] md:h-[300px] flex items-center justify-center transition-all duration-1000 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"}`}>
               {/* HS Text - HIGH VISIBILITY NEON HIGHLIGHT */}
               <div className="relative z-20 flex flex-col items-center">
-                <span className="font-display text-[5rem] md:text-[8rem] font-bold text-white select-none tracking-tighter leading-none shadow-[0_0_60px_rgba(255,255,255,0.15)] opacity-90 transition-all duration-700 hover:scale-105 hover:opacity-100">
+                <motion.span
+                  className="font-display text-[3rem] md:text-[4.5rem] font-bold text-white select-none tracking-tighter leading-none"
+                  animate={{ textShadow: ['0 0 20px rgba(236,72,153,0.3)', '0 0 50px rgba(236,72,153,0.7)', '0 0 20px rgba(236,72,153,0.3)'] }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+                >
                   HS
-                </span>
+                </motion.span>
                 <motion.div 
                   initial={{ width: 0 }}
                   whileInView={{ width: "100%" }}
                   transition={{ duration: 1, delay: 0.5 }}
-                  className="h-1 bg-indigo-500 shadow-[0_0_15px_#6366f1] mt-[-20px] md:mt-[-40px]"
+                  className="h-[2px] bg-pink-500 shadow-[0_0_15px_#ec4899] mt-[-8px] md:mt-[-12px]"
                 />
               </div>
 
               {/* Monogram Rings - High Brightness */}
-              <div className="absolute inset-0 border-[3px] border-white/20 rounded-full animate-[spin_40s_linear_infinite] shadow-[0_0_20px_rgba(255,255,255,0.1)]" />
-              <div className="absolute inset-10 border border-indigo-500/40 rounded-full animate-[spin_25s_linear_infinite_reverse] shadow-[0_0_30px_rgba(99,102,241,0.2)]" />
-              <div className="absolute inset-20 border border-white/10 rounded-full animate-[spin_50s_linear_infinite]" />
+              <div className="absolute inset-0 border-[2px] border-pink-500/30 rounded-full animate-[spin_40s_linear_infinite] shadow-[0_0_20px_rgba(236,72,153,0.15)]" />
+              <div className="absolute inset-8 border border-pink-400/20 rounded-full animate-[spin_25s_linear_infinite_reverse] shadow-[0_0_20px_rgba(236,72,153,0.1)]" />
+              <div className="absolute inset-16 border border-white/10 rounded-full animate-[spin_50s_linear_infinite]" />
               
               {/* Rotating Neon Accent Ring */}
               <svg className="absolute inset-0 w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 100 100">
@@ -105,16 +109,16 @@ export default function About() {
                   fill="none" stroke="currentColor" 
                   strokeWidth="1.2" 
                   strokeDasharray="40 300"
-                  className="text-indigo-400"
+                  className="text-pink-400"
                   initial={{ strokeDashoffset: 0 }}
                   animate={{ strokeDashoffset: [0, -314] }}
                   transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                  style={{ filter: "drop-shadow(0 0 8px #6366f1)" }}
+                  style={{ filter: "drop-shadow(0 0 8px #ec4899)" }}
                 />
               </svg>
 
               {/* Central Intense Glow */}
-              <div className="absolute w-48 h-48 bg-indigo-600/10 rounded-full blur-[80px]" />
+              <div className="absolute w-32 h-32 bg-pink-500/10 rounded-full blur-[60px]" />
             </div>
           </div>
 
