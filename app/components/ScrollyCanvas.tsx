@@ -14,9 +14,7 @@ export default function ScrollyCanvas() {
   const currentFrame = useRef(0);
   const rafId = useRef<number>(0);
 
-  // Tracks scroll through the full 600vh container
-  // offset ["start start", "end end"] = 0 when top of container hits top of viewport,
-  // 1 when bottom of container hits bottom of viewport — all 128 frames play through
+  // Progress tracks 0→1 as user scrolls through the 300vh container
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
@@ -28,7 +26,7 @@ export default function ScrollyCanvas() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Resize canvas to fill viewport
+    /* ─── Resize canvas to fill viewport exactly ─── */
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -37,11 +35,11 @@ export default function ScrollyCanvas() {
     window.addEventListener('resize', resize);
     resize();
 
+    /* ─── Draw a single frame with object-fit: cover math ─── */
     function drawFrame(index: number) {
       const img = frames.current[index];
       if (!img || !img.complete || img.naturalWidth === 0) return;
       if (!ctx || !canvas) return;
-      // object-fit: cover math
       const scale = Math.max(
         canvas.width / img.naturalWidth,
         canvas.height / img.naturalHeight
@@ -54,7 +52,7 @@ export default function ScrollyCanvas() {
       ctx.drawImage(img, x, y, w, h);
     }
 
-    // Load frame 0 immediately so canvas is not blank
+    /* ─── Load frame 0 immediately — no blank start ─── */
     const first = new Image();
     first.src = getFramePath(0);
     first.onload = () => {
@@ -63,7 +61,7 @@ export default function ScrollyCanvas() {
     };
     frames.current[0] = first;
 
-    // Load remaining frames in background batches of 10
+    /* ─── Load remaining frames in background batches of 10 ─── */
     let i = 1;
     function loadBatch() {
       const end = Math.min(i + 10, TOTAL_FRAMES);
@@ -71,21 +69,16 @@ export default function ScrollyCanvas() {
         const img = new Image();
         img.src = getFramePath(i);
         const capturedI = i;
-        img.onload = () => {
-          frames.current[capturedI] = img;
-        };
+        img.onload = () => { frames.current[capturedI] = img; };
         frames.current[i] = img;
       }
       if (i < TOTAL_FRAMES) setTimeout(loadBatch, 100);
     }
-    setTimeout(loadBatch, 500);
+    setTimeout(loadBatch, 300);
 
-    // Map scroll progress → frame index, draw via requestAnimationFrame
+    /* ─── Map scroll → frame index at 60fps ─── */
     const unsubscribe = scrollYProgress.on('change', (v) => {
-      const idx = Math.min(
-        TOTAL_FRAMES - 1,
-        Math.round(v * (TOTAL_FRAMES - 1))
-      );
+      const idx = Math.min(TOTAL_FRAMES - 1, Math.round(v * (TOTAL_FRAMES - 1)));
       currentFrame.current = idx;
       cancelAnimationFrame(rafId.current);
       rafId.current = requestAnimationFrame(() => drawFrame(idx));
@@ -99,12 +92,22 @@ export default function ScrollyCanvas() {
   }, [scrollYProgress]);
 
   return (
-    // Outer: 600vh tall — gives enough scroll room for all 128 frames
+    /*
+     * SCROLL-VIDEO PATTERN (like Apple product pages):
+     *
+     * ┌──────────────────────────────────┐  ← 300vh scroll container (normal flow)
+     * │  ┌────────────────────────────┐  │
+     * │  │ sticky top-0  h-screen     │  │  ← stays pinned WHILE user scrolls 300vh
+     * │  │                            │  │     then releases and Skills slides up
+     * │  │   <canvas>  covers it all  │  │
+     * │  └────────────────────────────┘  │
+     * └──────────────────────────────────┘
+     * ↓  Skills, Projects, etc. appear here
+     */
     <div
       ref={containerRef}
-      style={{ height: '600vh', position: 'relative' }}
+      style={{ height: '300vh', position: 'relative' }}
     >
-      {/* Inner: sticky — stays pinned fullscreen while user scrolls through 600vh */}
       <div
         style={{
           position: 'sticky',
@@ -113,14 +116,9 @@ export default function ScrollyCanvas() {
           width: '100%',
         }}
       >
-        {/* Canvas fills the sticky container exactly */}
         <canvas
           ref={canvasRef}
-          style={{
-            display: 'block',
-            width: '100%',
-            height: '100%',
-          }}
+          style={{ display: 'block', width: '100%', height: '100%' }}
         />
       </div>
     </div>
