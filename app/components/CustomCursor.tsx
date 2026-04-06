@@ -7,7 +7,7 @@ export default function CustomCursor() {
   const [isClicked, setIsClicked] = useState(false);
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
-  const requestRef = useRef<number>();
+  const requestRef = useRef<number | null>(null);
   
   const mousePos = useRef({ x: 0, y: 0 });
   const dotCurrentPos = useRef({ x: 0, y: 0 });
@@ -18,7 +18,7 @@ export default function CustomCursor() {
       mousePos.current = { x: e.clientX, y: e.clientY };
       
       const target = e.target as HTMLElement;
-      setIsHovered(!!target.closest("a, button, [role='button'], .interactive, .cursor-pointer"));
+      setIsHovered(!!target.closest("a, button, [role='button'], .interactive, .cursor-pointer, input, textarea"));
     };
 
     const handleMouseDown = () => setIsClicked(true);
@@ -65,25 +65,27 @@ export default function CustomCursor() {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[9999] mix-blend-difference">
-      {/* Small Dot */}
+      {/* Small Dot (6px) */}
       <div
         ref={dotRef}
-        className="fixed top-0 left-0 w-1.5 h-1.5 bg-white rounded-full transition-opacity duration-300"
+        className="fixed top-0 left-0 w-[6px] h-[6px] bg-white rounded-full transition-opacity duration-300"
         style={{ opacity: isHovered ? 0 : 1 }}
       />
 
-      {/* Large Ring */}
+      {/* Large Ring (28px) */}
       <div
         ref={ringRef}
-        className="fixed top-0 left-0 rounded-full border border-white/50 transition-all duration-300 ease-out"
+        className="fixed top-0 left-0 rounded-full border border-white/50 transition-all duration-300 ease-out flex items-center justify-center"
         style={{
           width: isHovered ? "48px" : "28px",
           height: isHovered ? "48px" : "28px",
           borderColor: isHovered ? "#4f46e5" : "rgba(255, 255, 255, 0.4)",
           backgroundColor: isHovered ? "rgba(79, 70, 229, 0.1)" : "transparent",
-          transform: `scale(${isClicked ? 0.8 : 1})`,
+          transform: `scale(${isClicked ? 0.8 : 1}) translate3d(${ringCurrentPos.current.x}px, ${ringCurrentPos.current.y}px, 0) translate(-50%, -50%)`, // Combined transform
+          transformOrigin: "center center"
         }}
-      />
+      >
+      </div>
     </div>
   );
 }

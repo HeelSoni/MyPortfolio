@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 @theme {
   --font-sans: var(--font-inter);
   --font-display: var(--font-syne);
@@ -32,11 +34,13 @@
     box-sizing: border-box;
     overflow-x: hidden;
     font-size: var(--font-body);
+    background-color: var(--background);
+    color: var(--foreground);
   }
   
-  h1 { font-size: var(--font-h1); }
-  h2 { font-size: var(--font-h2); }
-  h3 { font-size: var(--font-h3); }
+  h1 { font-size: var(--font-h1); font-family: var(--font-display); }
+  h2 { font-size: var(--font-h2); font-family: var(--font-display); }
+  h3 { font-size: var(--font-h3); font-family: var(--font-display); }
 
   /* Disable custom cursor on touch */
   @media (pointer: coarse) {
@@ -50,36 +54,13 @@
   gap: 1.5rem;
 }
 
-.reveal-hidden {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.8s cubic-bezier(0.21, 0.47, 0.32, 0.98);
-}
-
-.reveal-visible {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-  filter: blur(0) !important;
-}
-
-/* Shimmer / Scan line animation */
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-.shimmer-bg::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; width: 50%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
-  animation: shimmer 4s infinite linear;
-}
-
-.noise-overlay {
-  position: absolute; inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Ffilter id='noiseFilter'%3E%3Cferefine baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.05; pointer-events: none; mix-blend-mode: overlay;
+/* Glassmorphism utility */
+.glass-card {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 /* Shimmer / Scan line animation */
@@ -96,9 +77,9 @@
 .shimmer-bg::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 50%;
+  top: 0; 
+  left: 0; 
+  width: 100%; 
   height: 100%;
   background: linear-gradient(
     90deg,
@@ -106,15 +87,15 @@
     rgba(255, 255, 255, 0.03),
     transparent
   );
-  animation: shimmer 4s infinite linear;
+  animation: shimmer 5s infinite linear;
 }
 
-/* noise filter */
+/* Noise filter */
 .noise-overlay {
-  position: absolute;
+  position: absolute; 
   inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Ffilter id='noiseFilter'%3E%3Cferefine baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.05;
-  pointer-events: none;
+  opacity: 0.05; 
+  pointer-events: none; 
   mix-blend-mode: overlay;
 }

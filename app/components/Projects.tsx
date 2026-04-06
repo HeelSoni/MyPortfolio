@@ -10,6 +10,7 @@ const projects = [
     description: "Built a machine learning model using Scikit-Learn to predict customer churn with 85% accuracy. Deployed insights into a Power BI dashboard for stakeholders.",
     tags: ["Python", "Scikit-Learn", "Power BI", "SQL"],
     link: "/projects/customer-churn-prediction",
+    featured: true
   },
   {
     id: 2,
@@ -47,18 +48,18 @@ export default function Projects() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="font-display text-[clamp(2.5rem,8vw,4.5rem)] font-bold tracking-tight mb-4 leading-none text-white">
+          <h2 className="font-display text-[var(--font-h2)] font-bold tracking-tight mb-4 leading-none text-white">
             Selected Work
           </h2>
-          <p className="text-white/40 text-lg md:text-xl max-w-2xl font-light">
+          <p className="text-white/40 text-[var(--font-body)] max-w-2xl font-light">
             Architecting data-driven solutions to solve complex business narratives.
           </p>
         </motion.div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="portfolio-grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((project, i) => {
-          const isFeatured = i === 0;
+          const isFeatured = project.featured;
           return (
             <motion.div
               key={project.id}
@@ -70,13 +71,14 @@ export default function Projects() {
                 delay: i * 0.1,
                 ease: [0.21, 0.47, 0.32, 0.98] 
               }}
-              className={`${
-                isFeatured ? "md:col-span-2 lg:col-span-2 h-[400px] md:h-[500px]" : "h-[400px]"
-              } group relative`}
+              style={{
+                gridColumn: isFeatured ? "span 2" : "span 1"
+              }}
+              className={`group relative h-[400px] ${isFeatured ? "md:h-[500px]" : "h-[400px]"} ${isFeatured ? "col-span-1 md:col-span-2" : "col-span-1"}`}
             >
               <a 
                 href={project.link}
-                className="flex flex-col h-full glass-card rounded-[2rem] p-8 md:p-10 transition-all duration-500 hover:shadow-[0_0_40px_var(--accent-glow)] hover:-translate-y-1.5 border border-white/5 hover:border-indigo-500/30 overflow-hidden"
+                className="flex flex-col h-full glass-card rounded-[2rem] p-8 md:p-10 transition-all duration-500 hover:shadow-[0_0_40px_rgba(79,70,229,0.15)] hover:translate-y-[-6px] border border-white/5 hover:border-indigo-500/30 overflow-hidden"
               >
                 {/* Hover Glow Effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
