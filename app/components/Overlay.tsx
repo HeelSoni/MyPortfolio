@@ -3,21 +3,21 @@
 import { motion, MotionValue, useTransform } from "framer-motion";
 
 export default function Overlay({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
-  // Station 1: Left Side (0% - 20%) -> completely disappears by 22%
-  const opacity1 = useTransform(scrollYProgress, [0, 0.10, 0.18, 0.22], [1, 1, 1, 0]);
-  const y1 = useTransform(scrollYProgress, [0, 0.10, 0.18, 0.22], [0, 0, 0, -50]);
+  // Station 1: Left Side (0% - 20%)
+  const opacity1 = useTransform(scrollYProgress, [0, 0.10, 0.18, 0.22], [1, 1, 1, 0], { clamp: true });
+  const y1 = useTransform(scrollYProgress, [0, 0.10, 0.18, 0.22], [0, 0, 0, -50], { clamp: true });
 
-  // Station 2: Right Side (26% - 46%) -> perfectly isolated
-  const opacity2 = useTransform(scrollYProgress, [0.26, 0.30, 0.42, 0.46], [0, 1, 1, 0]);
-  const y2 = useTransform(scrollYProgress, [0.26, 0.30, 0.42, 0.46], [50, 0, 0, -50]);
+  // Station 2: Right Side (26% - 46%)
+  const opacity2 = useTransform(scrollYProgress, [0.26, 0.30, 0.42, 0.46], [0, 1, 1, 0], { clamp: true });
+  const y2 = useTransform(scrollYProgress, [0.26, 0.30, 0.42, 0.46], [50, 0, 0, -50], { clamp: true });
 
-  // Station 3: Left Side (50% - 70%) -> perfectly isolated
-  const opacity3 = useTransform(scrollYProgress, [0.50, 0.54, 0.66, 0.70], [0, 1, 1, 0]);
-  const y3 = useTransform(scrollYProgress, [0.50, 0.54, 0.66, 0.70], [50, 0, 0, -50]);
+  // Station 3: Left Side (50% - 70%)
+  const opacity3 = useTransform(scrollYProgress, [0.50, 0.54, 0.66, 0.70], [0, 1, 1, 0], { clamp: true });
+  const y3 = useTransform(scrollYProgress, [0.50, 0.54, 0.66, 0.70], [50, 0, 0, -50], { clamp: true });
 
-  // Station 4: Right Side (75% - 95%) -> perfectly isolated
-  const opacity4 = useTransform(scrollYProgress, [0.75, 0.79, 0.91, 0.95], [0, 1, 1, 0]);
-  const y4 = useTransform(scrollYProgress, [0.75, 0.79, 0.91, 0.95], [50, 0, 0, -50]);
+  // Station 4: Right Side (75% - 95%)
+  const opacity4 = useTransform(scrollYProgress, [0.75, 0.79, 0.91, 0.95], [0, 1, 1, 0], { clamp: true });
+  const y4 = useTransform(scrollYProgress, [0.75, 0.79, 0.91, 0.95], [50, 0, 0, -50], { clamp: true });
 
   return (
     <div className="absolute inset-0 z-10 pointer-events-none container mx-auto">
