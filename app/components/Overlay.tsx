@@ -27,11 +27,11 @@ export default function Overlay({ scrollYProgress }: { scrollYProgress: MotionVa
         style={{ opacity: opacity1, y: y1 }}
         className="absolute top-[40%] md:top-1/2 -translate-y-1/2 left-[2%] md:left-[4%] max-w-[200px] md:max-w-[260px] text-left"
       >
-        <h1 className="font-display text-2xl md:text-3xl font-bold tracking-tight text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] leading-tight">
+        <h1 className="font-display text-2xl md:text-3xl font-bold tracking-tight text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] leading-tight selection:bg-cyan-500/30 animate-pulse-subtle">
           I am Heel Soni.
         </h1>
         <p className="mt-3 text-white/80 text-sm md:text-base font-medium drop-shadow-md">
-          A dedicated Data Analyst.
+          A dedicated Data Analysis Specialist.
         </p>
       </motion.div>
 

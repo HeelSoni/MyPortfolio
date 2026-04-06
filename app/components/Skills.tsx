@@ -45,6 +45,25 @@ function SkillCard({ category, index, isVisible }: { category: typeof skillCateg
     y.set(e.clientY - (rect.top + rect.height / 2));
   }
 
+  // Custom Data Symbols for each category
+  const DataIcon = () => {
+    if (index === 0) return ( // Engineering -> Bar Chart
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-cyan-500 opacity-60 group-hover/item:opacity-100 group-hover/item:scale-125 transition-all">
+        <path d="M18 20V10M12 20V4M6 20v-6" />
+      </svg>
+    );
+    if (index === 1) return ( // Analysis -> Stats/Sigma
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-cyan-500 opacity-60 group-hover/item:opacity-100 group-hover/item:scale-125 transition-all">
+        <path d="M18 7 12 13 7 8" /><polyline points="16 5 19 5 19 8" />
+      </svg>
+    );
+    return ( // Visualization -> Pie/Node
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-cyan-500 opacity-60 group-hover/item:opacity-100 group-hover/item:scale-125 transition-all">
+        <circle cx="12" cy="12" r="10" /><path d="m16 10-4 4-4-2" />
+      </svg>
+    );
+  };
+
   return (
     <motion.div
       ref={cardRef}
@@ -70,9 +89,9 @@ function SkillCard({ category, index, isVisible }: { category: typeof skillCateg
             initial={{ opacity: 0, x: -10 }}
             animate={isVisible ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: index * 0.15 + j * 0.05 + 0.3 }}
-            className="flex items-center gap-2.5 group/item cursor-default"
+            className="flex items-center gap-3 group/item cursor-default"
           >
-            <div className="w-1.5 h-1.5 rounded-full bg-cyan-500 opacity-30 group-hover/item:opacity-100 group-hover/item:scale-125 transition-all duration-300" />
+            <DataIcon />
             <span className="text-white/40 text-sm md:text-base font-medium group-hover/item:text-white transition-colors duration-300">
               {skill}
             </span>
