@@ -6,6 +6,7 @@ import CustomCursor from "./components/CustomCursor";
 import DataBackground from "./components/DataBackground";
 import ScrollProgress from "./components/ScrollProgress";
 import TacticalOverlay from "./components/TacticalOverlay";
+import Preloader from "./components/Preloader";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const syne = Syne({ subsets: ["latin"], variable: "--font-syne" });
@@ -22,7 +23,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${syne.variable} antialiased bg-[#020204] text-[#ededed]`}>
-      <body className="min-h-screen flex flex-col font-sans relative bg-transparent overflow-x-hidden">
+      <body className="min-h-screen flex flex-col font-sans relative bg-[#020204]">
+        <Preloader />
         <DataBackground />
         <TacticalOverlay />
         <CustomCursor />
