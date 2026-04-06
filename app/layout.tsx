@@ -31,9 +31,7 @@ export default function RootLayout({
         <TacticalOverlay />
         <CustomCursor />
         <ScrollProgress />
-        <SmoothScroll>
-          {children}
-        </SmoothScroll>
+         {children}
       </body>
     </html>
   );
