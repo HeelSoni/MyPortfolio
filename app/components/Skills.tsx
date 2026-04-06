@@ -106,7 +106,7 @@ export default function Skills() {
   const [sectionRef, isVisible] = useIntersectionObserver({ threshold: 0.1 });
 
   return (
-    <section id="capabilities" ref={sectionRef} className="py-16 px-6 container mx-auto max-w-7xl perspective-normal">
+    <section id="capabilities" ref={sectionRef} className="py-24 px-6 container mx-auto max-w-7xl perspective-normal">
       <div className="mb-20 text-center md:text-left">
         <motion.div
            initial={{ opacity: 0, y: 10 }}

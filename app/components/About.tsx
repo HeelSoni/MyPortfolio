@@ -13,7 +13,7 @@ export default function About() {
     <section 
       id="about" 
       ref={sectionRef}
-      className="py-20 relative overflow-hidden bg-transparent"
+      className="py-24 relative overflow-hidden bg-transparent"
     >
       {/* SVG Noise Overlay */}
       <div className="noise-overlay" />
