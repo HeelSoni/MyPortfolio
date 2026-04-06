@@ -9,28 +9,28 @@ const projects = [
     title: "Customer Churn Prediction",
     description: "Built a machine learning model using Scikit-Learn to predict customer churn with 85% accuracy. Deployed insights into a Power BI dashboard for stakeholders.",
     tags: ["Python", "Scikit-Learn", "Power BI", "SQL"],
-    link: "https://github.com/HeelSoni/Customer-Churn-Prediction",
+    link: "https://github.com/HeelSoni",
   },
   {
     id: 2,
     title: "Sales Data Pipeline",
     description: "Engineered an automated data pipeline extracting daily sales data, transforming it via Pandas, and loading it into a MySQL data warehouse.",
     tags: ["Python", "Pandas", "MySQL", "ETL"],
-    link: "https://github.com/HeelSoni/Sales-Data-Pipeline",
+    link: "https://github.com/HeelSoni",
   },
   {
     id: 3,
     title: "Market Basket Analysis",
     description: "Applied Apriori algorithm to grocery sales data to identify product associations, leading to optimized product placement recommendations.",
     tags: ["Python", "Data Mining", "Matplotlib"],
-    link: "https://github.com/HeelSoni/Market-Basket-Analysis",
+    link: "https://github.com/HeelSoni",
   },
   {
     id: 4,
     title: "Interactive Financial Dashboard",
     description: "Designed a comprehensive Power BI dashboard tracking KPIs, revenue trends, and operational costs across multiple regions.",
     tags: ["Power BI", "DAX", "Data Viz"],
-    link: "https://github.com/HeelSoni/Financial-Dashboard",
+    link: "https://github.com/HeelSoni",
   }
 ];
 
