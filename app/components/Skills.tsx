@@ -56,7 +56,7 @@ function SkillCard({ category, index, isVisible }: { category: typeof skillCateg
       transition={{ duration: 0.8, delay: index * 0.15, ease: [0.21, 0.47, 0.32, 0.98] }}
     >
       <div className="mb-10 relative z-10">
-        <span className="text-[10px] font-mono tracking-[0.4em] uppercase text-cyan-400 opacity-60 mb-2 block">{category.prefix}</span>
+        <span className="text-xs font-mono tracking-[0.4em] uppercase text-cyan-400 opacity-60 mb-2 block">{category.prefix}</span>
         <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tighter font-display uppercase group-hover:neon-text-cyan transition-colors duration-500">
           {category.title}
         </h3>

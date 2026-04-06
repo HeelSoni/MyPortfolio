@@ -123,7 +123,7 @@ export default function About() {
         <div className="mt-40 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-white/30 text-[11px] uppercase tracking-[0.4em] font-mono">
           <span>© {new Date().getFullYear()} Heel Soni // Data Architect</span>
           <span className="hidden md:block opacity-40">Tactical Precision // Analytical Clarity</span>
-          <span className="lg:neon-text-indigo transition-all duration-500">Mumbai // IN</span>
+          <span className="lg:neon-text-indigo transition-all duration-500">Anand // IN</span>
         </div>
       </div>
     </section>
