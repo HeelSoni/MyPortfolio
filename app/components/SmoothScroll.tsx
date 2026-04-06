@@ -6,13 +6,14 @@ import Lenis from "@studio-freight/lenis";
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.5, // Slightly longer duration for "weightier" feel
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
       orientation: "vertical", 
       gestureOrientation: "vertical", 
       smoothWheel: true, 
-      wheelMultiplier: 1, 
-      touchMultiplier: 2, 
+      wheelMultiplier: 0.9, // Slightly reduced to avoid jumpiness
+      touchMultiplier: 1.5, 
+      infinite: false,
     });
 
     function raf(time: number) {
@@ -22,10 +23,13 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
     requestAnimationFrame(raf);
 
+    // Synchronize with Framer Motion or other scroll-linked animations
+    // lenis.on('scroll', ScrollTrigger.update); 
+
     return () => {
       lenis.destroy();
     };
   }, []);
 
-  return <>{children}</>;
+  return <div className="relative z-0">{children}</div>;
 }
