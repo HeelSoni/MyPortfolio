@@ -1,29 +1,32 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { useScroll } from 'framer-motion';
+import { useScroll, useTransform, motion } from 'framer-motion';
 
 const TOTAL_FRAMES = 128;
 const getFramePath = (i: number) =>
   `/sequence/frame_${String(i).padStart(3, '0')}_delay-0.062s.png`;
 
 export default function ScrollyCanvas() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const spacerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const frames = useRef<HTMLImageElement[]>([]);
   const currentFrame = useRef(0);
   const rafId = useRef<number>(0);
 
   /*
-   * 400vh container + sticky canvas:
-   * -- All 128 frames play over 400vh of scroll
-   * -- At ~50% total page scroll, canvas releases & Skills appears
-   * -- No blank gap between hero and content
+   * Track the 300vh spacer scroll — 0 when spacer top is at viewport top,
+   * 1 when spacer bottom passes the viewport top.
+   * All 128 frames play over this 300vh zone.
+   * Canvas slides OUT at 85-100% of spacer scroll (last 45vh).
    */
   const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end'],
+    target: spacerRef,
+    offset: ['start start', 'end start'],
   });
+
+  // Canvas slides UP and out of view at the end of the spacer scroll
+  const canvasY = useTransform(scrollYProgress, [0.85, 1.0], ['0vh', '-105vh']);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -55,7 +58,7 @@ export default function ScrollyCanvas() {
       ctx.drawImage(img, x, y, w, h);
     }
 
-    // Load frame 0 immediately — no blank screen on load
+    // Frame 0 loads immediately — no blank screen on init
     const first = new Image();
     first.src = getFramePath(0);
     frames.current[0] = first;
@@ -65,7 +68,7 @@ export default function ScrollyCanvas() {
       first.onload = () => { frames.current[0] = first; drawFrame(0); };
     }
 
-    // Load remaining frames in batches of 10 in background
+    // Background batch load remaining 127 frames
     let i = 1;
     function loadBatch() {
       const end = Math.min(i + 10, TOTAL_FRAMES);
@@ -80,7 +83,7 @@ export default function ScrollyCanvas() {
     }
     setTimeout(loadBatch, 300);
 
-    // Scroll → frame index, drawn at 60fps
+    // 128 frames advance over the full 300vh spacer scroll
     const unsubscribe = scrollYProgress.on('change', (v) => {
       const idx = Math.min(TOTAL_FRAMES - 1, Math.round(v * (TOTAL_FRAMES - 1)));
       if (idx === currentFrame.current) return;
@@ -98,27 +101,30 @@ export default function ScrollyCanvas() {
 
   return (
     /*
-     * 400vh outer — scroll space for all 128 frames
-     * sticky h-screen inner — canvas stays fullscreen during that scroll
-     * Skills / Projects appear only AFTER this 400vh zone is done
+     * 300vh spacer div (normal page flow)
+     * Fixed canvas stays fullscreen on top WHILE in the spacer zone.
+     *
+     * Math: 300vh spacer + ~300vh content = ~600vh total page
+     * => Canvas visible for first ~50% of total page scroll
+     * => At 50%, canvas slides up and Skills appears underneath
      */
-    <div
-      ref={containerRef}
-      style={{ height: '400vh', position: 'relative' }}
-    >
-      <div
+    <div ref={spacerRef} style={{ height: '300vh', position: 'relative' }}>
+      <motion.div
         style={{
-          position: 'sticky',
+          position: 'fixed',
           top: 0,
-          height: '100vh',
+          left: 0,
           width: '100%',
+          height: '100vh',
+          zIndex: 5,
+          y: canvasY,
         }}
       >
         <canvas
           ref={canvasRef}
           style={{ display: 'block', width: '100%', height: '100%' }}
         />
-      </div>
+      </motion.div>
     </div>
   );
 }
