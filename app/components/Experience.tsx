@@ -3,6 +3,7 @@
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { useIntersectionObserver } from "@/lib/useIntersectionObserver";
+import ScrambleText from "./ScrambleText";
 
 const experiences = [
   {
@@ -53,8 +54,8 @@ export default function Experience() {
         ref={sectionRef}
         className={`mb-24 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
       >
-        <h2 className="font-display text-[var(--font-h2)] font-bold tracking-tight mb-6 text-white lg:text-purple-400">
-          Journey
+        <h2 className="font-display text-[var(--font-h1)] font-bold tracking-tighter mb-6 text-white lg:text-purple-400">
+          <ScrambleText text="Journey" />
         </h2>
         <p className="text-white/40 text-[var(--font-body)] max-w-2xl font-light">
           Academic foundations and professional stepping stones.

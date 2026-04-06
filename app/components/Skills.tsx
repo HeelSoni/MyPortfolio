@@ -1,8 +1,9 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import { useIntersectionObserver } from "@/lib/useIntersectionObserver";
 import { useRef } from "react";
+import ScrambleText from "./ScrambleText";
 
 const skillCategories = [
   {
@@ -21,11 +22,20 @@ const skillCategories = [
 
 function SkillCard({ category, index, isVisible }: { category: typeof skillCategories[0], index: number, isVisible: boolean }) {
   const cardRef = useRef<HTMLDivElement>(null);
+  
+  // Mouse Follow Parallax
   const x = useMotionValue(0);
   const y = useMotionValue(0);
+  const mouseRotateX = useSpring(useTransform(y, [-100, 100], [15, -15]), { stiffness: 150, damping: 20 });
+  const mouseRotateY = useSpring(useTransform(x, [-100, 100], [-15, 15]), { stiffness: 150, damping: 20 });
 
-  const rotateX = useSpring(useTransform(y, [-100, 100], [15, -15]), { stiffness: 150, damping: 20 });
-  const rotateY = useSpring(useTransform(x, [-100, 100], [-15, 15]), { stiffness: 150, damping: 20 });
+  // Scroll Perspective
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "end start"]
+  });
+  const scrollRotateX = useTransform(scrollYProgress, [0, 0.5, 1], [10, 0, -10]);
+  const scrollScale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.9, 1, 1, 0.9]);
 
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
     if (!cardRef.current) return;
@@ -46,17 +56,22 @@ function SkillCard({ category, index, isVisible }: { category: typeof skillCateg
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      initial={{ opacity: 0, y: 50, rotateX: 20 }}
-      animate={isVisible ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+      style={{ 
+        rotateX: mouseRotateX, 
+        rotateY: mouseRotateY, 
+        scale: scrollScale,
+        perspective: 1000 
+      }}
+      className={`glass-card rounded-[2.5rem] p-10 shimmer-neon relative group overflow-hidden border border-white/[0.08] hover:border-cyan-500/50 hover:shadow-[0_0_40px_rgba(6,182,212,0.15)] transition-all duration-700 ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"
+      }`}
       transition={{ 
         duration: 0.8, 
         delay: index * 0.15,
         ease: [0.21, 0.47, 0.32, 0.98]
       }}
-      style={{ rotateX, rotateY, perspective: 1000 }}
-      className="glass-card rounded-[2.5rem] p-10 shimmer-neon relative group overflow-hidden border border-white/[0.08] hover:border-cyan-500/50 hover:shadow-[0_0_40px_rgba(6,182,212,0.15)] transition-all duration-700"
     >
-      <h3 className="text-2xl font-bold mb-10 text-white tracking-tight relative z-10 font-display group-hover:neon-text-cyan transition-colors duration-500">
+      <h3 className="text-2xl font-bold mb-10 text-white tracking-tighter relative z-10 font-display group-hover:neon-text-cyan transition-colors duration-500 uppercase">
         {category.title}
       </h3>
       
@@ -87,15 +102,16 @@ export default function Skills() {
   const [sectionRef, isVisible] = useIntersectionObserver({ threshold: 0.1 });
 
   return (
-    <section id="skills" ref={sectionRef} className="py-32 px-6 container mx-auto max-w-7xl">
-      <div className="mb-20">
+    <section id="skills" ref={sectionRef} className="py-32 px-6 container mx-auto max-w-7xl perspective-normal">
+      <div className="mb-24">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+           initial={{ opacity: 0, scale: 0.9 }}
+           whileInView={{ opacity: 1, scale: 1 }}
+           viewport={{ once: true }}
+           transition={{ duration: 1, ease: "easeOut" }}
         >
-          <h2 className="font-display text-[var(--font-h2)] font-bold tracking-tight mb-4 text-white lg:text-cyan-400/80">
-            Capabilities
+          <h2 className="font-display text-[var(--font-h1)] font-bold tracking-tighter mb-6 text-white lg:text-cyan-400">
+            <ScrambleText text="Capabilities" />
           </h2>
           <p className="text-white/30 text-[var(--font-body)] max-w-2xl font-light">
             A multi-disciplinary toolkit engineered for precision and strategic clarity.
@@ -103,7 +119,7 @@ export default function Skills() {
         </motion.div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         {skillCategories.map((category, i) => (
           <SkillCard 
             key={category.title} 

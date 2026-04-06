@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { Mail, ArrowRight } from "lucide-react";
 import { useIntersectionObserver } from "@/lib/useIntersectionObserver";
+import ScrambleText from "./ScrambleText";
+import { useRef } from "react";
 
 export default function About() {
   const [sectionRef, isVisible] = useIntersectionObserver({ threshold: 0.1 });
@@ -31,8 +33,10 @@ export default function About() {
           
           <div className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-100 translate-y-12"}`}>
             <h2 className="font-display text-[var(--font-h1)] font-bold tracking-tighter mb-10 text-white leading-[0.85]">
-              Let's build <br />
-              <span className="text-indigo-400 neon-text-indigo">together.</span>
+              <ScrambleText text="Let's build" /> <br />
+              <span className="text-indigo-400 neon-text-indigo">
+                <ScrambleText text="together." />
+              </span>
             </h2>
             <p className="text-[var(--font-body)] text-white/40 max-w-lg mb-14 font-light leading-relaxed group-hover:text-white/60 transition-colors">
               Whether you have a complex dataset that needs decoding, or a business problem looking for a data-driven solution, I'm ready to architect the strategy.
