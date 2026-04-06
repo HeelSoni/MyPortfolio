@@ -13,10 +13,10 @@ export default function ScrollyCanvas() {
   const [loaded, setLoaded] = useState(false);
   const currentFrameRef = useRef(0);
 
-  // NATURAL FLOW: 120vh parent so it scrolls up naturally with the page
+  // DEEP CINEMATIC SEQUENTIAL: 800vh for a professional, weighty scrollytelling experience.
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"] // Target when it's in view
+    offset: ["start start", "end end"]
   });
 
   useEffect(() => {
@@ -64,15 +64,31 @@ export default function ScrollyCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    // Fill screen logic
+    // Object-fit cover logic (ALL FRAMES COVER)
+    const canvasRatio = canvas.width / canvas.height;
+    const imgRatio = img.width / img.height;
+
+    let renderWidth, renderHeight, offsetX, offsetY;
+
+    if (canvasRatio > imgRatio) {
+      renderWidth = canvas.width;
+      renderHeight = canvas.width / imgRatio;
+      offsetX = 0;
+      offsetY = (canvas.height - renderHeight) / 2;
+    } else {
+      renderWidth = canvas.height * imgRatio;
+      renderHeight = canvas.height;
+      offsetX = (canvas.width - renderWidth) / 2;
+      offsetY = 0;
+    }
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, offsetX, offsetY, renderWidth, renderHeight);
   };
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     if (imagesRef.current.length === 0) return;
     
-    // Map the 0-1 progress of the 120vh section to the 128 frames
     const frameIndex = Math.min(
       TOTAL_FRAMES - 1,
       Math.floor(latest * TOTAL_FRAMES)
@@ -87,13 +103,14 @@ export default function ScrollyCanvas() {
   });
 
   return (
-    <div ref={containerRef} className="relative h-[120vh] w-full bg-transparent overflow-hidden">
+    <div ref={containerRef} className="relative h-[800vh] w-full bg-transparent">
       {/* 
-        NATURAL SCROLL RESTORATION: Match exact previous intro flow.
-        - Section moves UP with the page (no pinning).
-        - 120vh depth for a fast, cinematic scrub during the transition.
+        SEQUENTIAL RESTORATION: Match exact previous intro flow.
+        - 800vh parent
+        - Sticky h-screen canvas (Pins correctly)
+        - 4-Station Overlay (Synced in Overlay.tsx)
       */}
-      <div className="relative h-full w-full bg-transparent z-10">
+      <div className="sticky top-0 h-screen w-full overflow-visible bg-transparent z-10">
         <canvas
           ref={canvasRef}
           className="absolute inset-0 h-full w-full z-10"

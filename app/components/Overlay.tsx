@@ -3,25 +3,29 @@
 import { motion, MotionValue, useTransform } from "framer-motion";
 
 export default function Overlay({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
-  // Station 1: Center (0% -> ~20%)
-  const opacity1 = useTransform(scrollYProgress, [0, 0.05, 0.15, 0.20], [0, 1, 1, 0], { clamp: true });
-  const y1 = useTransform(scrollYProgress, [0, 0.05, 0.15, 0.20], [20, 0, 0, -20], { clamp: true });
+  // Station 1: Far Left (0% - 22%)
+  const opacity1 = useTransform(scrollYProgress, [0, 0.05, 0.17, 0.22], [0, 1, 1, 0], { clamp: true });
+  const x1 = useTransform(scrollYProgress, [0, 0.05, 0.17, 0.22], [-20, 0, 0, -20], { clamp: true });
 
-  // Station 2: Left Side (30% -> ~50%)
-  const opacity2 = useTransform(scrollYProgress, [0.25, 0.30, 0.45, 0.50], [0, 1, 1, 0], { clamp: true });
-  const y2 = useTransform(scrollYProgress, [0.25, 0.30, 0.45, 0.50], [20, 0, 0, -20], { clamp: true });
+  // Station 2: Far Right (26% - 46%)
+  const opacity2 = useTransform(scrollYProgress, [0.26, 0.31, 0.41, 0.46], [0, 1, 1, 0], { clamp: true });
+  const x2 = useTransform(scrollYProgress, [0.26, 0.31, 0.41, 0.46], [20, 0, 0, 20], { clamp: true });
 
-  // Station 3: Right Side (60% -> ~80%)
-  const opacity3 = useTransform(scrollYProgress, [0.55, 0.60, 0.75, 0.80], [0, 1, 1, 0], { clamp: true });
-  const y3 = useTransform(scrollYProgress, [0.55, 0.60, 0.75, 0.80], [20, 0, 0, -20], { clamp: true });
+  // Station 3: Far Left (50% - 70%)
+  const opacity3 = useTransform(scrollYProgress, [0.50, 0.55, 0.65, 0.70], [0, 1, 1, 0], { clamp: true });
+  const x3 = useTransform(scrollYProgress, [0.50, 0.55, 0.65, 0.70], [-20, 0, 0, -20], { clamp: true });
+
+  // Station 4: Far Right (75% - 95%)
+  const opacity4 = useTransform(scrollYProgress, [0.75, 0.80, 0.90, 0.95], [0, 1, 1, 0], { clamp: true });
+  const x4 = useTransform(scrollYProgress, [0.75, 0.80, 0.90, 0.95], [20, 0, 0, 20], { clamp: true });
 
   return (
-    <div className="absolute inset-0 z-10 pointer-events-none container mx-auto">
+    <div className="absolute inset-0 z-10 pointer-events-none w-full h-full">
       
-      {/* 1st Station - Center (0%) */}
+      {/* 1st Station - Far Left */}
       <motion.div 
-        style={{ opacity: opacity1, y: y1 }}
-        className="absolute inset-0 flex flex-col items-center justify-center text-center px-4"
+        style={{ opacity: opacity1, x: x1 }}
+        className="absolute top-[40%] md:top-1/2 -translate-y-1/2 left-[3%] md:left-[5%] max-w-[200px] md:max-w-[320px] text-left"
       >
         <h1 className="font-display text-4xl md:text-6xl font-bold tracking-tight text-white drop-shadow-2xl leading-tight">
           Heel Soni. <br />
@@ -29,25 +33,36 @@ export default function Overlay({ scrollYProgress }: { scrollYProgress: MotionVa
         </h1>
       </motion.div>
 
-      {/* 2nd Station - Left (30%) */}
+      {/* 2nd Station - Far Right */}
       <motion.div 
-        style={{ opacity: opacity2, y: y2 }}
-        className="absolute top-1/2 -translate-y-1/2 left-[5%] md:left-[10%] max-w-[300px] md:max-w-[400px] text-left"
+        style={{ opacity: opacity2, x: x2 }}
+        className="absolute top-[40%] md:top-1/2 -translate-y-1/2 right-[3%] md:right-[5%] max-w-[200px] md:max-w-[320px] text-right"
       >
         <h2 className="font-display text-3xl md:text-5xl font-bold text-white drop-shadow-lg leading-tight">
           I turn raw data <br />
-          <span className="text-cyan-400 font-mono">into decisions.</span>
+          <span className="text-cyan-400 font-mono italic">into decisions.</span>
         </h2>
       </motion.div>
 
-      {/* 3rd Station - Right (60%) */}
+      {/* 3rd Station - Far Left */}
       <motion.div 
-        style={{ opacity: opacity3, y: y3 }}
-        className="absolute top-1/2 -translate-y-1/2 right-[5%] md:right-[10%] max-w-[300px] md:max-w-[400px] text-right"
+        style={{ opacity: opacity3, x: x3 }}
+        className="absolute top-[40%] md:top-1/2 -translate-y-1/2 left-[3%] md:left-[5%] max-w-[200px] md:max-w-[320px] text-left"
+      >
+        <h2 className="font-display text-3xl md:text-5xl font-bold text-white drop-shadow-lg leading-tight">
+          Uncovering <br />
+          <span className="text-cyan-400 font-mono italic">hidden patterns.</span>
+        </h2>
+      </motion.div>
+
+      {/* 4th Station - Far Right */}
+      <motion.div 
+        style={{ opacity: opacity4, x: x4 }}
+        className="absolute top-[40%] md:top-1/2 -translate-y-1/2 right-[3%] md:right-[5%] max-w-[200px] md:max-w-[320px] text-right"
       >
         <h2 className="font-display text-3xl md:text-5xl font-bold text-white drop-shadow-lg leading-tight">
           Bridging analytics <br />
-          <span className="text-cyan-400 font-mono">& strategy.</span>
+          <span className="text-cyan-400 font-mono italic">& strategy.</span>
         </h2>
       </motion.div>
 
