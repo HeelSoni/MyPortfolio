@@ -114,12 +114,12 @@ export default function Skills() {
            viewport={{ once: true }}
            transition={{ duration: 0.8 }}
         >
-          <span className="text-cyan-400 text-xs font-mono tracking-[0.5em] uppercase mb-4 block">Core Competencies</span>
-          <h2 className="font-display text-[var(--font-h1)] font-bold tracking-tighter mb-6 text-white group-hover:neon-text-cyan">
+          <span className="text-cyan-400 text-sm font-mono tracking-[0.5em] uppercase mb-4 block font-bold drop-shadow-[0_0_10px_rgba(6,182,212,0.4)]">Core Competencies</span>
+          <h2 className="font-display text-[var(--font-h1)] font-bold tracking-tighter mb-6 text-white group-hover:neon-text-cyan transition-colors duration-500">
              <ScrambleText text="Capabilities" />
           </h2>
-          <p className="text-white/30 text-[var(--font-body)] max-w-2xl font-light mx-auto md:mx-0">
-             Analytical frameworks engineered for high-performance strategic clarity.
+          <p className="text-white/30 text-[var(--font-body)] max-w-2xl font-light mx-auto md:mx-0 leading-relaxed">
+             Analytical frameworks engineered for high-performance strategic clarity and tactical impact.
           </p>
         </motion.div>
       </div>
