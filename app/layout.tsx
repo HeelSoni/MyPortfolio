@@ -22,8 +22,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${syne.variable} antialiased bg-[#020204] text-[#ededed]`}>
-      <body className="min-h-screen flex flex-col font-sans relative bg-[#020204]">
+    <html lang="en" className={`${inter.variable} ${syne.variable} antialiased bg-black text-[#ededed]`}>
+      <body className="min-h-screen flex flex-col font-sans relative bg-transparent overflow-x-hidden">
         <Preloader />
         <DataBackground />
         <TacticalOverlay />

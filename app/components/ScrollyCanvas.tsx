@@ -103,7 +103,7 @@ export default function ScrollyCanvas() {
 
   return (
     <div ref={containerRef} className="relative h-[600vh] w-full">
-      <div className="sticky top-0 h-screen w-full overflow-hidden bg-black">
+      <div className="sticky top-0 h-screen w-full overflow-hidden bg-transparent">
         <canvas
           ref={canvasRef}
           className="absolute inset-0 h-full w-full"

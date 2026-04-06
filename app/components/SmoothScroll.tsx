@@ -9,7 +9,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
   useEffect(() => {
     // LUXURY SMOOTH SCROLL (Jesko Jets Style)
     const lenis = new Lenis({
-      duration: 1.2, // Balanced for responsive scrollytelling
+      duration: 1.0, // Standard responsive duration for perfect scrubbing
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
       orientation: "vertical", 
       gestureOrientation: "vertical", 
@@ -37,5 +37,5 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     };
   }, []);
 
-  return <div className="relative z-0 antialiased w-full">{children}</div>;
+  return <div className="relative z-0 antialiased w-full overflow-visible">{children}</div>;
 }
