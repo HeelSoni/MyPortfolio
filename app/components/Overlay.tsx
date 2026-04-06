@@ -3,34 +3,34 @@
 import { motion, MotionValue, useTransform } from "framer-motion";
 
 export default function Overlay({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
-  // Station 1: Left Side (0% - 25%) -> Starts heavily visible
-  const opacity1 = useTransform(scrollYProgress, [0, 0.15, 0.22, 0.25], [1, 1, 1, 0]);
-  const y1 = useTransform(scrollYProgress, [0, 0.15, 0.22, 0.25], [0, 0, 0, -50]);
+  // Station 1: Left Side (0% - 20%) -> completely disappears by 22%
+  const opacity1 = useTransform(scrollYProgress, [0, 0.10, 0.18, 0.22], [1, 1, 1, 0]);
+  const y1 = useTransform(scrollYProgress, [0, 0.10, 0.18, 0.22], [0, 0, 0, -50]);
 
-  // Station 2: Right Side (25% - 50%)
-  const opacity2 = useTransform(scrollYProgress, [0.25, 0.3, 0.45, 0.50], [0, 1, 1, 0]);
-  const y2 = useTransform(scrollYProgress, [0.25, 0.3, 0.45, 0.50], [50, 0, 0, -50]);
+  // Station 2: Right Side (26% - 46%) -> perfectly isolated
+  const opacity2 = useTransform(scrollYProgress, [0.26, 0.30, 0.42, 0.46], [0, 1, 1, 0]);
+  const y2 = useTransform(scrollYProgress, [0.26, 0.30, 0.42, 0.46], [50, 0, 0, -50]);
 
-  // Station 3: Left Side (50% - 75%)
-  const opacity3 = useTransform(scrollYProgress, [0.50, 0.55, 0.70, 0.75], [0, 1, 1, 0]);
-  const y3 = useTransform(scrollYProgress, [0.50, 0.55, 0.70, 0.75], [50, 0, 0, -50]);
+  // Station 3: Left Side (50% - 70%) -> perfectly isolated
+  const opacity3 = useTransform(scrollYProgress, [0.50, 0.54, 0.66, 0.70], [0, 1, 1, 0]);
+  const y3 = useTransform(scrollYProgress, [0.50, 0.54, 0.66, 0.70], [50, 0, 0, -50]);
 
-  // Station 4: Right Side (75% - 100%)
-  const opacity4 = useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [0, 1, 1, 0]);
-  const y4 = useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [50, 0, 0, -50]);
+  // Station 4: Right Side (75% - 95%) -> perfectly isolated
+  const opacity4 = useTransform(scrollYProgress, [0.75, 0.79, 0.91, 0.95], [0, 1, 1, 0]);
+  const y4 = useTransform(scrollYProgress, [0.75, 0.79, 0.91, 0.95], [50, 0, 0, -50]);
 
   return (
-    <div className="absolute inset-0 z-10 pointer-events-none container mx-auto flex items-center">
+    <div className="absolute inset-0 z-10 pointer-events-none container mx-auto">
       
       {/* 1st Statement - Left */}
       <motion.div 
         style={{ opacity: opacity1, y: y1 }}
-        className="absolute left-[5%] md:left-[8%] lg:left-[12%] w-[80vw] max-w-[280px] md:max-w-[320px] text-left"
+        className="absolute top-[40%] md:top-1/2 -translate-y-1/2 left-[2%] md:left-[4%] max-w-[200px] md:max-w-[260px] text-left"
       >
-        <h1 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-white drop-shadow-xl leading-tight">
+        <h1 className="font-display text-2xl md:text-3xl font-bold tracking-tight text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] leading-tight">
           I am Heel Soni.
         </h1>
-        <p className="mt-4 text-white/70 text-lg md:text-xl font-light drop-shadow-md">
+        <p className="mt-3 text-white/80 text-sm md:text-base font-medium drop-shadow-md">
           A dedicated Data Analyst.
         </p>
       </motion.div>
@@ -38,12 +38,12 @@ export default function Overlay({ scrollYProgress }: { scrollYProgress: MotionVa
       {/* 2nd Statement - Right */}
       <motion.div 
         style={{ opacity: opacity2, y: y2 }}
-        className="absolute right-[5%] md:right-[8%] lg:right-[12%] w-[80vw] max-w-[280px] md:max-w-[320px] text-right"
+        className="absolute top-[40%] md:top-1/2 -translate-y-1/2 right-[2%] md:right-[4%] max-w-[200px] md:max-w-[260px] text-right"
       >
-        <h2 className="font-display text-3xl md:text-4xl font-medium text-white drop-shadow-xl leading-tight">
+        <h2 className="font-display text-2xl md:text-3xl font-bold text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] leading-tight">
           Translating chaos into clarity.
         </h2>
-        <p className="mt-4 text-white/70 text-lg font-light drop-shadow-md">
+        <p className="mt-3 text-white/80 text-sm md:text-base font-medium drop-shadow-md">
           Parsing monumental datasets to find the invisible.
         </p>
       </motion.div>
@@ -51,26 +51,26 @@ export default function Overlay({ scrollYProgress }: { scrollYProgress: MotionVa
       {/* 3rd Statement - Left */}
       <motion.div 
         style={{ opacity: opacity3, y: y3 }}
-        className="absolute left-[5%] md:left-[8%] lg:left-[12%] w-[80vw] max-w-[280px] md:max-w-[320px] text-left"
+        className="absolute top-[40%] md:top-1/2 -translate-y-1/2 left-[2%] md:left-[4%] max-w-[200px] md:max-w-[260px] text-left"
       >
-        <h2 className="font-display text-3xl md:text-4xl font-medium text-white drop-shadow-xl leading-tight">
+        <h2 className="font-display text-2xl md:text-3xl font-bold text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] leading-tight">
           Uncovering hidden patterns.
         </h2>
-        <p className="mt-4 text-white/70 text-lg font-light drop-shadow-md">
-          Leveraging advanced analytics & modelling.
+        <p className="mt-3 text-white/80 text-sm md:text-base font-medium drop-shadow-md">
+          Leveraging advanced analytics & mathematical modeling.
         </p>
       </motion.div>
 
       {/* 4th Statement - Right */}
       <motion.div 
         style={{ opacity: opacity4, y: y4 }}
-        className="absolute right-[5%] md:right-[8%] lg:right-[12%] w-[80vw] max-w-[280px] md:max-w-[320px] text-right"
+        className="absolute top-[40%] md:top-1/2 -translate-y-1/2 right-[2%] md:right-[4%] max-w-[200px] md:max-w-[260px] text-right"
       >
-        <h2 className="font-display text-3xl md:text-4xl font-bold text-white drop-shadow-xl leading-tight">
+        <h2 className="font-display text-2xl md:text-3xl font-bold text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] leading-tight">
           Empowering decisions.
         </h2>
-        <p className="mt-4 text-white/80 text-lg font-light drop-shadow-md">
-          Delivering strategic certainty based on data.
+        <p className="mt-3 text-white/80 text-sm md:text-base font-medium drop-shadow-md">
+          Delivering strategic certainty based on exact data.
         </p>
       </motion.div>
 
