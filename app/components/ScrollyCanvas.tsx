@@ -106,11 +106,13 @@ export default function ScrollyCanvas() {
       <div className="sticky top-0 h-screen w-full overflow-hidden bg-transparent">
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 h-full w-full"
+          className="absolute inset-0 h-full w-full z-10"
         />
         <div className="absolute inset-0 bg-black/40 z-0" />
         {/* Pass scrollYProgress to Overlay for synchronized text animations */}
-        <Overlay scrollYProgress={scrollYProgress} />
+        <div className="absolute inset-0 z-20">
+          <Overlay scrollYProgress={scrollYProgress} />
+        </div>
       </div>
     </div>
   );
