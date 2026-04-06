@@ -3,23 +3,26 @@
 import { motion, MotionValue, useTransform } from "framer-motion";
 
 export default function Overlay({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
-  // Station 1: 0% - 20%
-  const opacity1 = useTransform(scrollYProgress, [0, 0.1, 0.2, 0.25], [1, 1, 1, 0]);
-  const y1 = useTransform(scrollYProgress, [0, 0.2, 0.25], [0, -20, -50]);
+  // Station 1: 0% - 25%
+  const opacity1 = useTransform(scrollYProgress, [0, 0.15, 0.25], [1, 1, 0]);
+  const y1 = useTransform(scrollYProgress, [0, 0.25], [0, -50]);
+  const display1 = useTransform(scrollYProgress, (v) => v > 0.28 ? "none" : "flex");
 
-  // Station 2: 30% - 50%
-  const opacity2 = useTransform(scrollYProgress, [0.25, 0.3, 0.45, 0.55], [0, 1, 1, 0]);
-  const y2 = useTransform(scrollYProgress, [0.25, 0.3, 0.45, 0.55], [50, 0, 0, -50]);
+  // Station 2: 35% - 55%
+  const opacity2 = useTransform(scrollYProgress, [0.3, 0.4, 0.5, 0.58], [0, 1, 1, 0]);
+  const y2 = useTransform(scrollYProgress, [0.3, 0.4, 0.5, 0.58], [50, 0, 0, -50]);
+  const display2 = useTransform(scrollYProgress, (v) => (v < 0.28 || v > 0.6) ? "none" : "flex");
 
-  // Station 3: 60% - 80%
-  const opacity3 = useTransform(scrollYProgress, [0.55, 0.6, 0.75, 0.85], [0, 1, 1, 0]);
-  const y3 = useTransform(scrollYProgress, [0.55, 0.6, 0.75, 0.85], [50, 0, 0, -50]);
+  // Station 3: 65% - 85%
+  const opacity3 = useTransform(scrollYProgress, [0.62, 0.7, 0.8, 0.88], [0, 1, 1, 0]);
+  const y3 = useTransform(scrollYProgress, [0.62, 0.7, 0.8, 0.88], [50, 0, 0, -50]);
+  const display3 = useTransform(scrollYProgress, (v) => (v < 0.6 || v > 0.9) ? "none" : "flex");
 
   return (
     <div className="absolute inset-0 z-10 pointer-events-none flex flex-col items-center justify-center container mx-auto px-6 max-w-6xl">
       
       <motion.div 
-        style={{ opacity: opacity1, y: y1 }}
+        style={{ opacity: opacity1, y: y1, display: display1 as any }}
         className="absolute w-full text-center flex flex-col items-center justify-center"
       >
         <h1 className="font-display text-5xl md:text-8xl font-bold tracking-tighter text-white drop-shadow-xl">
@@ -31,7 +34,7 @@ export default function Overlay({ scrollYProgress }: { scrollYProgress: MotionVa
       </motion.div>
 
       <motion.div 
-        style={{ opacity: opacity2, y: y2 }}
+        style={{ opacity: opacity2, y: y2, display: display2 as any }}
         className="absolute w-full left-0 md:left-24 text-left flex flex-col items-start justify-center"
       >
         <h2 className="font-display text-4xl md:text-6xl font-medium text-white max-w-2xl drop-shadow-xl leading-tight">
@@ -40,7 +43,7 @@ export default function Overlay({ scrollYProgress }: { scrollYProgress: MotionVa
       </motion.div>
 
       <motion.div 
-        style={{ opacity: opacity3, y: y3 }}
+        style={{ opacity: opacity3, y: y3, display: display3 as any }}
         className="absolute w-full right-0 md:right-24 text-right flex flex-col items-end justify-center"
       >
         <h2 className="font-display text-4xl md:text-6xl font-medium text-white max-w-2xl drop-shadow-xl leading-tight">
