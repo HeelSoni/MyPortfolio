@@ -14,10 +14,17 @@ export default function ScrollyCanvas() {
   const currentFrame = useRef(0);
   const rafId = useRef<number>(0);
 
-  // Progress tracks 0→1 as user scrolls through the 300vh container
+  /*
+   * offset: ['start start', 'end start']
+   * 0 = top of container at top of viewport (page load — frame 0 visible)
+   * 1 = bottom of container at top of viewport (canvas fully scrolled away)
+   *
+   * Result: all 128 frames play as the 100vh canvas scrolls naturally
+   * off screen. Skills section appears immediately after.
+   */
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start start', 'end end'],
+    offset: ['start start', 'end start'],
   });
 
   useEffect(() => {
@@ -26,7 +33,6 @@ export default function ScrollyCanvas() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    /* ─── Resize canvas to fill viewport exactly ─── */
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -35,7 +41,6 @@ export default function ScrollyCanvas() {
     window.addEventListener('resize', resize);
     resize();
 
-    /* ─── Draw a single frame with object-fit: cover math ─── */
     function drawFrame(index: number) {
       const img = frames.current[index];
       if (!img || !img.complete || img.naturalWidth === 0) return;
@@ -52,16 +57,17 @@ export default function ScrollyCanvas() {
       ctx.drawImage(img, x, y, w, h);
     }
 
-    /* ─── Load frame 0 immediately — no blank start ─── */
+    // Load frame 0 immediately — fullscreen on page load
     const first = new Image();
     first.src = getFramePath(0);
-    first.onload = () => {
-      frames.current[0] = first;
-      drawFrame(0);
-    };
     frames.current[0] = first;
+    if (first.complete && first.naturalWidth > 0) {
+      drawFrame(0);
+    } else {
+      first.onload = () => { frames.current[0] = first; drawFrame(0); };
+    }
 
-    /* ─── Load remaining frames in background batches of 10 ─── */
+    // Load remaining frames in batches of 10 in the background
     let i = 1;
     function loadBatch() {
       const end = Math.min(i + 10, TOTAL_FRAMES);
@@ -76,9 +82,10 @@ export default function ScrollyCanvas() {
     }
     setTimeout(loadBatch, 300);
 
-    /* ─── Map scroll → frame index at 60fps ─── */
+    // Scroll drives frames — 60fps via requestAnimationFrame
     const unsubscribe = scrollYProgress.on('change', (v) => {
       const idx = Math.min(TOTAL_FRAMES - 1, Math.round(v * (TOTAL_FRAMES - 1)));
+      if (idx === currentFrame.current) return;
       currentFrame.current = idx;
       cancelAnimationFrame(rafId.current);
       rafId.current = requestAnimationFrame(() => drawFrame(idx));
@@ -93,34 +100,23 @@ export default function ScrollyCanvas() {
 
   return (
     /*
-     * SCROLL-VIDEO PATTERN (like Apple product pages):
+     * SCROLL-VIDEO HERO — No sticky, no gap:
      *
-     * ┌──────────────────────────────────┐  ← 300vh scroll container (normal flow)
-     * │  ┌────────────────────────────┐  │
-     * │  │ sticky top-0  h-screen     │  │  ← stays pinned WHILE user scrolls 300vh
-     * │  │                            │  │     then releases and Skills slides up
-     * │  │   <canvas>  covers it all  │  │
-     * │  └────────────────────────────┘  │
-     * └──────────────────────────────────┘
-     * ↓  Skills, Projects, etc. appear here
+     * 100vh container (normal page flow, not sticky)
+     *   └── 100vh canvas fills it exactly
+     *
+     * On load     → frame 0 shows fullscreen (like video paused on first frame)
+     * On scroll   → frames advance 0→127 as canvas moves up (like video playing)
+     * After 100vh → canvas gone, Skills section appears directly below
      */
     <div
       ref={containerRef}
-      style={{ height: '300vh', position: 'relative' }}
+      style={{ height: '100vh', position: 'relative', overflow: 'hidden' }}
     >
-      <div
-        style={{
-          position: 'sticky',
-          top: 0,
-          height: '100vh',
-          width: '100%',
-        }}
-      >
-        <canvas
-          ref={canvasRef}
-          style={{ display: 'block', width: '100%', height: '100%' }}
-        />
-      </div>
+      <canvas
+        ref={canvasRef}
+        style={{ display: 'block', width: '100%', height: '100%' }}
+      />
     </div>
   );
 }
