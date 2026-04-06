@@ -9,28 +9,28 @@ const projects = [
     title: "Customer Churn Prediction",
     description: "Built a machine learning model using Scikit-Learn to predict customer churn with 85% accuracy. Deployed insights into a Power BI dashboard for stakeholders.",
     tags: ["Python", "Scikit-Learn", "Power BI", "SQL"],
-    link: "https://github.com/HeelSoni",
+    link: "/projects/customer-churn-prediction",
   },
   {
     id: 2,
     title: "Sales Data Pipeline",
     description: "Engineered an automated data pipeline extracting daily sales data, transforming it via Pandas, and loading it into a MySQL data warehouse.",
     tags: ["Python", "Pandas", "MySQL", "ETL"],
-    link: "https://github.com/HeelSoni",
+    link: "/projects/sales-data-pipeline",
   },
   {
     id: 3,
     title: "Market Basket Analysis",
     description: "Applied Apriori algorithm to grocery sales data to identify product associations, leading to optimized product placement recommendations.",
     tags: ["Python", "Data Mining", "Matplotlib"],
-    link: "https://github.com/HeelSoni",
+    link: "/projects/market-basket-analysis",
   },
   {
     id: 4,
     title: "Interactive Financial Dashboard",
     description: "Designed a comprehensive Power BI dashboard tracking KPIs, revenue trends, and operational costs across multiple regions.",
     tags: ["Power BI", "DAX", "Data Viz"],
-    link: "https://github.com/HeelSoni",
+    link: "/projects/interactive-financial-dashboard",
   }
 ];
 
@@ -59,7 +59,6 @@ export default function Projects() {
         {projects.map((project, i) => (
           <motion.a
             href={project.link}
-            target="_blank" rel="noopener noreferrer"
             key={project.id}
             initial={{ opacity: 0, y: 50, scale: 0.95 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
