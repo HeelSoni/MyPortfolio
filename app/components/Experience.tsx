@@ -25,74 +25,86 @@ const experiences = [
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-32 px-6 container mx-auto max-w-4xl relative">
-      <motion.div 
-        animate={{ x: [0, -50, 50, 0], y: [0, 100, -100, 0] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px] pointer-events-none -z-10" 
-      />
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="mb-16 text-center"
-      >
-        <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">Journey</h2>
-        <p className="text-white/60 text-lg max-w-2xl mx-auto">
-          Academic foundations and professional stepping stones.
-        </p>
-      </motion.div>
+    <section id="experience" className="py-32 px-6 container mx-auto max-w-5xl relative">
+      <div className="mb-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="font-display text-[clamp(2.5rem,8vw,4rem)] font-bold tracking-tight mb-4 text-white">
+            Journey
+          </h2>
+          <p className="text-white/40 text-lg md:text-xl max-w-2xl font-light">
+            Academic foundations and professional stepping stones.
+          </p>
+        </motion.div>
+      </div>
 
-      <div className="relative border-l border-white/10 md:ml-8 ml-4 pl-8 md:pl-16 py-4 space-y-16">
-        
-        {/* Animated line drawing down the timeline */}
-        <motion.div 
-          className="absolute top-0 left-[-1px] w-[2px] bg-white origin-top"
-          initial={{ scaleY: 0 }}
-          whileInView={{ scaleY: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1.5, ease: "anticipate" }}
-          style={{ height: "100%" }}
-        />
-
-        {experiences.map((exp, i) => (
+      <div className="relative">
+        {/* Vertical Timeline Line */}
+        <div className="absolute left-4 md:left-8 top-0 bottom-0 w-[1px] bg-white/10 overflow-hidden">
           <motion.div 
-            key={i}
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ delay: i * 0.2, duration: 0.7, ease: "easeOut" }}
-            whileHover="hover"
-            className="relative group cursor-default"
-          >
-            {/* Timeline Dot */}
+            className="absolute top-0 left-0 w-full bg-indigo-500 shadow-[0_0_15px_rgba(79,70,229,0.5)] origin-top"
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: false, amount: 0.1 }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            style={{ height: "100%" }}
+          />
+        </div>
+
+        <div className="space-y-16 pl-12 md:pl-24">
+          {experiences.map((exp, i) => (
             <motion.div 
-              variants={{
-                hover: { scale: 1.5, boxShadow: "0 0 15px 4px rgba(255,255,255,0.6)" }
+              key={i}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ 
+                duration: 0.7, 
+                delay: i * 0.2,
+                ease: [0.21, 0.47, 0.32, 0.98]
               }}
-              transition={{ duration: 0.3 }}
-              className="absolute w-4 h-4 rounded-full bg-white -left-[2.1rem] md:-left-[4.6rem] top-1.5 shadow-[0_0_10px_rgba(255,255,255,0.5)] z-10" 
-            />
-            
-            <motion.div
-               variants={{
-                 hover: { x: 10 }
-               }}
-               transition={{ duration: 0.3, ease: "easeOut" }}
-               className="p-4 -m-4 rounded-xl transition-colors duration-300 group-hover:bg-white/5"
+              className="relative group"
             >
-              <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-4 mb-2">
-                <h3 className="text-2xl font-semibold transition-colors duration-300 group-hover:text-white drop-shadow-sm">{exp.title}</h3>
-                <span className="text-white/50 text-sm font-mono tracking-wider transition-colors duration-300 group-hover:text-white/80">{exp.period}</span>
+              {/* Timeline Dot Marker */}
+              <div className="absolute left-[-2.4rem] md:left-[-4.9rem] top-2">
+                <motion.div 
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  className="w-4 h-4 rounded-full bg-[#050508] border-2 border-indigo-500 relative z-10"
+                />
+                <motion.div 
+                  animate={{ scale: [1, 2, 1], opacity: [0.5, 0, 0.5] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute inset-0 rounded-full bg-indigo-500/50 -z-0"
+                />
               </div>
-              
-              <h4 className="text-lg text-white/70 mb-4 font-medium transition-colors duration-300 group-hover:text-white/90">{exp.company}</h4>
-              <p className="text-white/60 leading-relaxed max-w-2xl transition-colors duration-300 group-hover:text-white/80">
-                {exp.description}
-              </p>
+
+              <div className="glass-card rounded-[2rem] p-8 md:p-10 border border-white/5 hover:border-indigo-500/20 transition-all duration-500 group-hover:translate-x-2">
+                <div className="flex flex-col md:flex-row md:items-baseline justify-between mb-4 gap-2">
+                  <h3 className="text-2xl font-bold text-white tracking-tight leading-none group-hover:text-indigo-400 transition-colors duration-300">
+                    {exp.title}
+                  </h3>
+                  <span className="text-white/30 text-sm font-mono tracking-widest uppercase">
+                    {exp.period}
+                  </span>
+                </div>
+                
+                <h4 className="text-lg text-white/60 mb-6 font-medium">
+                  {exp.company}
+                </h4>
+                
+                <p className="text-white/40 leading-relaxed font-light text-base md:text-lg">
+                  {exp.description}
+                </p>
+              </div>
             </motion.div>
-          </motion.div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
