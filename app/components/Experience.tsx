@@ -54,7 +54,7 @@ export default function Experience() {
         ref={sectionRef}
         className={`mb-24 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
       >
-        <h2 className="font-display text-[var(--font-h1)] font-bold tracking-tighter mb-6 text-white lg:text-purple-400">
+        <h2 className="font-display text-[var(--font-h1)] font-bold tracking-tighter mb-6 text-white lg:text-pink-400">
           <ScrambleText text="Journey" />
         </h2>
         <p className="text-white/40 text-[var(--font-body)] max-w-2xl font-light">
@@ -66,7 +66,7 @@ export default function Experience() {
         {/* Vertical Timeline Line (Neon Purple Glow) */}
         <div className="absolute left-4 md:left-8 top-0 bottom-0 w-[2px] bg-white/[0.05] overflow-hidden">
           <motion.div 
-            className="absolute top-0 left-0 w-full bg-purple-500 shadow-[0_0_25px_rgba(168,85,247,0.8)] origin-top"
+            className="absolute top-0 left-0 w-full bg-pink-500 shadow-[0_0_25px_rgba(236,72,153,0.8)] origin-top"
             style={{ scaleY, height: "100%" }}
           />
         </div>
@@ -82,7 +82,7 @@ export default function Experience() {
             >
               {/* Timeline Neon Purple Point */}
               <div className="absolute left-[-2.45rem] md:left-[-4.95rem] top-3">
-                <div className="w-5 h-5 rounded-full bg-[#050508] border-2 border-purple-500 relative z-20 shadow-[0_0_15px_rgba(168,85,247,0.4)]" />
+                <div className="w-5 h-5 rounded-full bg-[#050508] border-2 border-pink-500 relative z-20 shadow-[0_0_15px_rgba(236,72,153,0.4)]" />
                 <motion.div 
                   initial={{ opacity: 0, scale: 1 }}
                   whileInView={{ 
@@ -91,16 +91,16 @@ export default function Experience() {
                   }}
                   viewport={{ once: false }}
                   transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute inset-0 rounded-full bg-purple-500/40 -z-10 blur-sm"
+                  className="absolute inset-0 rounded-full bg-pink-500/40 -z-10 blur-sm"
                 />
               </div>
 
-              <div className="glass-card rounded-[2.5rem] p-10 md:p-12 border border-white/[0.05] hover:border-purple-500/30 transition-all duration-700 hover:translate-x-3 hover:shadow-[0_0_40px_rgba(168,85,247,0.1)]">
+              <div className="glass-card rounded-[2.5rem] p-10 md:p-12 border border-white/[0.05] hover:border-pink-500/30 transition-all duration-700 hover:translate-x-3 hover:shadow-[0_0_40px_rgba(236,72,153,0.1)]">
                 <div className="flex flex-col md:flex-row md:items-baseline justify-between mb-6 gap-3">
-                  <h3 className="text-3xl md:text-4xl font-bold text-white tracking-tight leading-none group-hover:text-purple-400 transition-colors duration-500 font-display">
+                  <h3 className="text-3xl md:text-4xl font-bold text-white tracking-tight leading-none group-hover:text-pink-400 transition-colors duration-500 font-display">
                     {exp.title}
                   </h3>
-                  <span className="text-white/20 text-xs md:text-sm font-mono tracking-[0.3em] uppercase lg:group-hover:text-purple-300 transition-colors duration-500">
+                  <span className="text-white/20 text-xs md:text-sm font-mono tracking-[0.3em] uppercase lg:group-hover:text-pink-300 transition-colors duration-500">
                     {exp.period}
                   </span>
                 </div>

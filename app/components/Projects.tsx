@@ -68,21 +68,21 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
     >
       <a 
         href={project.link}
-        className="flex flex-col h-full bg-white/[0.03] backdrop-blur-[40px] border border-white/[0.1] rounded-[2rem] p-6 md:p-8 transition-all duration-700 hover:shadow-[0_0_60px_rgba(99,102,241,0.2)] hover:translate-y-[-10px] hover:border-indigo-500/50 overflow-hidden"
+        className="flex flex-col h-full bg-white/[0.03] backdrop-blur-[40px] border border-white/[0.1] rounded-[2rem] p-6 md:p-8 transition-all duration-700 hover:shadow-[0_0_60px_rgba(236,72,153,0.2)] hover:translate-y-[-10px] hover:border-pink-500/50 overflow-hidden"
       >
         {/* Neon Gradient Hover Effect */}
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 via-transparent to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
         
         <div className="flex justify-between items-start mb-auto relative z-10">
           <div className="max-w-[85%]">
-            <span className="text-indigo-400 text-[9px] font-mono tracking-[0.4em] uppercase mb-4 block opacity-50">
+            <span className="text-pink-400 text-[9px] font-mono tracking-[0.4em] uppercase mb-4 block opacity-50">
               Project 0{project.id}
             </span>
-            <h3 className="font-display font-bold leading-tight text-2xl md:text-3xl text-white group-hover:text-indigo-300 transition-all duration-500">
+            <h3 className="font-display font-bold leading-tight text-2xl md:text-3xl text-white group-hover:text-pink-300 transition-all duration-500">
               {project.title}
             </h3>
           </div>
-          <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center transition-all duration-500 group-hover:bg-indigo-500/40 group-hover:text-white group-hover:scale-110 group-hover:rotate-[45deg] group-hover:shadow-[0_0_15px_rgba(99,102,241,0.3)]">
+          <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center transition-all duration-500 group-hover:bg-pink-500/40 group-hover:text-white group-hover:scale-110 group-hover:rotate-[45deg] group-hover:shadow-[0_0_15px_rgba(236,72,153,0.3)]">
             <ArrowUpRight size={20} />
           </div>
         </div>
@@ -96,7 +96,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
             {project.tags.map((tag) => (
               <span 
                 key={tag}
-                className="px-3 py-1 text-[9px] font-mono tracking-widest bg-white/[0.02] border border-white/10 rounded-full text-white/40 uppercase group-hover:text-indigo-300 group-hover:border-indigo-500/30 transition-all duration-300"
+                className="px-3 py-1 text-[9px] font-mono tracking-widest bg-white/[0.02] border border-white/10 rounded-full text-white/40 uppercase group-hover:text-pink-300 group-hover:border-pink-500/30 transition-all duration-300"
               >
                 {tag}
               </span>
@@ -112,7 +112,7 @@ export default function Projects() {
   return (
     <section id="work" className="py-10 px-6 container mx-auto max-w-6xl relative overflow-hidden perspective-normal">
       {/* Background Subtle Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-indigo-600/5 rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-pink-500/5 rounded-full blur-[140px] pointer-events-none -z-10" />
 
       <div className="mb-16 text-center md:text-left">
         <motion.div

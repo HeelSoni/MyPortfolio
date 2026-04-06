@@ -25,7 +25,7 @@ export default function About() {
           opacity: [0.05, 0.1, 0.05]
         }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-500/10 rounded-full blur-[160px] pointer-events-none -z-10"
+        className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-pink-500/10 rounded-full blur-[160px] pointer-events-none -z-10"
       />
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
@@ -34,7 +34,7 @@ export default function About() {
           <div className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-100 translate-y-12"}`}>
             <h2 className="font-display text-[var(--font-h1)] font-bold tracking-tighter mb-10 text-white leading-[0.85]">
               <ScrambleText text="Let's build" /> <br />
-              <span className="text-indigo-400 neon-text-indigo">
+              <span className="text-pink-400">
                 <ScrambleText text="together." />
               </span>
             </h2>

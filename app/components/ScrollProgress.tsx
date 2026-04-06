@@ -27,7 +27,7 @@ export default function ScrollProgress() {
       {/* Animated Progress Fill */}
       <motion.div 
         style={{ scaleY }}
-        className="absolute top-0 left-0 right-0 bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500 rounded-full origin-top shadow-[0_0_20px_rgba(99,102,241,0.6)]"
+        className="absolute top-0 left-0 right-0 bg-gradient-to-b from-pink-400 via-fuchsia-500 to-pink-500 rounded-full origin-top shadow-[0_0_20px_rgba(236,72,153,0.6)]"
       />
 
       {/* Numerical Data Label */}
@@ -36,7 +36,7 @@ export default function ScrollProgress() {
       </div>
 
       <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 font-mono text-xs font-bold text-white tracking-widest flex flex-col items-center">
-        <span className="text-[10px] text-indigo-400 mb-1">PROG</span>
+        <span className="text-[10px] text-pink-400 mb-1">PROG</span>
         <div className="flex items-baseline">
           {percent}
           <span className="text-[8px] ml-0.5 opacity-50">%</span>
@@ -44,7 +44,7 @@ export default function ScrollProgress() {
       </div>
 
       {/* Side Decorative Nodes */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-indigo-500 shadow-[0_0_8px_#6366f1]" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-pink-500 shadow-[0_0_8px_#ec4899]" />
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-1.5 h-1.5 rounded-full bg-pink-500 shadow-[0_0_8px_#ec4899]" />
     </div>
   );
