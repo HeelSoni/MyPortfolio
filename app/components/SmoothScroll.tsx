@@ -9,13 +9,13 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
   useEffect(() => {
     // LUXURY SMOOTH SCROLL (Jesko Jets Style)
     const lenis = new Lenis({
-      duration: 1.5, // Longer duration for luxurious damping
+      duration: 1.2, // Balanced for responsive scrollytelling
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
       orientation: "vertical", 
       gestureOrientation: "vertical", 
       smoothWheel: true, 
       wheelMultiplier: 1, 
-      touchMultiplier: 2, 
+      touchMultiplier: 1.5, 
       infinite: false,
     });
 
@@ -37,5 +37,5 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     };
   }, []);
 
-  return <div className="relative z-0 antialiased w-full overflow-x-hidden">{children}</div>;
+  return <div className="relative z-0 antialiased w-full">{children}</div>;
 }
