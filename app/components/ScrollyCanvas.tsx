@@ -9,7 +9,7 @@ const TOTAL_FRAMES = 128;
 export default function ScrollyCanvas() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [images, setImages] = useState<HTMLImageElement[]>([]);
+  const imagesRef = useRef<HTMLImageElement[]>([]);
   const [loaded, setLoaded] = useState(false);
   const currentFrameRef = useRef(0);
 
@@ -43,7 +43,7 @@ export default function ScrollyCanvas() {
       };
       imgArray.push(img);
     }
-    setImages(imgArray);
+    imagesRef.current = imgArray;
     
     const handleResize = () => {
       if (imgArray[currentFrameRef.current]) {
@@ -87,17 +87,17 @@ export default function ScrollyCanvas() {
   };
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    if (images.length === 0) return;
+    if (imagesRef.current.length === 0) return;
     
     const frameIndex = Math.min(
       TOTAL_FRAMES - 1,
       Math.floor(latest * TOTAL_FRAMES)
     );
     
-    if (frameIndex !== currentFrameRef.current && images[frameIndex]) {
+    if (frameIndex !== currentFrameRef.current && imagesRef.current[frameIndex]) {
       currentFrameRef.current = frameIndex;
       requestAnimationFrame(() => {
-        drawOnCanvas(images[frameIndex]);
+        drawOnCanvas(imagesRef.current[frameIndex]);
       });
     }
   });
