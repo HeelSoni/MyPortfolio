@@ -120,7 +120,7 @@ export default function ScrollyCanvas() {
           left: 0,
           width: '100%',
           height: '100vh',
-          zIndex: 5,
+          zIndex: 30,
           y: canvasY,
         }}
       >
@@ -133,24 +133,24 @@ export default function ScrollyCanvas() {
         {/* ── STATION 1 — Left side ─────────────────────────────────────────── */}
         <motion.div
           style={{ opacity: op1, x: x1 }}
-          className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-[5%] max-w-[220px] md:max-w-[320px] text-left"
+          className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-[5%] max-w-[180px] md:max-w-[260px] text-left"
         >
-          <p className="font-mono text-[10px] md:text-xs uppercase tracking-[0.25em] text-cyan-400 mb-2">
+          <p className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-cyan-400 mb-2">
             01 / IDENTITY
           </p>
           <h2
             style={{
               fontFamily: 'var(--font-syne, sans-serif)',
-              fontWeight: 800,
-              lineHeight: 1.0,
-              letterSpacing: '-0.02em',
+              fontWeight: 700,
+              lineHeight: 1.1,
+              letterSpacing: '-0.01em',
               textTransform: 'uppercase',
             }}
-            className="text-3xl md:text-5xl text-white drop-shadow-2xl"
+            className="text-xl md:text-2xl text-white drop-shadow-2xl"
           >
             I am<br />
             <span className="text-cyan-400">Heel Soni.</span><br />
-            <span className="text-white text-xl md:text-3xl font-light tracking-widest normal-case">
+            <span className="text-white text-sm md:text-base font-light tracking-widest normal-case">
               Strategic Data Analyst
             </span>
           </h2>
@@ -159,20 +159,20 @@ export default function ScrollyCanvas() {
         {/* ── STATION 2 — Right side ────────────────────────────────────────── */}
         <motion.div
           style={{ opacity: op2, x: x2 }}
-          className="pointer-events-none absolute top-1/2 -translate-y-1/2 right-[5%] max-w-[220px] md:max-w-[320px] text-right"
+          className="pointer-events-none absolute top-1/2 -translate-y-1/2 right-[5%] max-w-[180px] md:max-w-[260px] text-right"
         >
-          <p className="font-mono text-[10px] md:text-xs uppercase tracking-[0.25em] text-cyan-400 mb-2">
+          <p className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-cyan-400 mb-2">
             02 / PURPOSE
           </p>
           <h2
             style={{
               fontFamily: 'var(--font-syne, sans-serif)',
-              fontWeight: 800,
-              lineHeight: 1.0,
-              letterSpacing: '-0.02em',
+              fontWeight: 700,
+              lineHeight: 1.1,
+              letterSpacing: '-0.01em',
               textTransform: 'uppercase',
             }}
-            className="text-3xl md:text-5xl text-white drop-shadow-2xl"
+            className="text-xl md:text-2xl text-white drop-shadow-2xl"
           >
             I turn raw data<br />
             <span className="text-cyan-400">into decisions.</span>
@@ -182,24 +182,24 @@ export default function ScrollyCanvas() {
         {/* ── STATION 3 — Left side ─────────────────────────────────────────── */}
         <motion.div
           style={{ opacity: op3, x: x3 }}
-          className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-[5%] max-w-[220px] md:max-w-[320px] text-left"
+          className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-[5%] max-w-[180px] md:max-w-[260px] text-left"
         >
-          <p className="font-mono text-[10px] md:text-xs uppercase tracking-[0.25em] text-cyan-400 mb-2">
+          <p className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-cyan-400 mb-2">
             03 / METHOD
           </p>
           <h2
             style={{
               fontFamily: 'var(--font-syne, sans-serif)',
-              fontWeight: 800,
-              lineHeight: 1.0,
-              letterSpacing: '-0.02em',
+              fontWeight: 700,
+              lineHeight: 1.1,
+              letterSpacing: '-0.01em',
               textTransform: 'uppercase',
             }}
-            className="text-3xl md:text-5xl text-white drop-shadow-2xl"
+            className="text-xl md:text-2xl text-white drop-shadow-2xl"
           >
             Uncovering<br />
             <span className="text-cyan-400">hidden patterns.</span><br />
-            <span className="text-white text-xl md:text-3xl font-light tracking-widest normal-case">
+            <span className="text-white text-sm md:text-base font-light tracking-widest normal-case">
               Bridging analytics &amp; strategy
             </span>
           </h2>
