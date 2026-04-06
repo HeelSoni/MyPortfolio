@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useScroll } from "framer-motion";
+import { useScroll, motion, AnimatePresence } from "framer-motion";
 import Overlay from "./Overlay";
 
 const TOTAL_FRAMES = 128;
@@ -10,10 +10,11 @@ export default function ScrollyCanvas() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imagesRef = useRef<HTMLImageElement[]>([]);
+  const [isEntered, setIsEntered] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const currentFrameRef = useRef(0);
 
-  // PRECISION TECHNICAL BRIEF: 600vh parent + sticky h-screen canvas
+  // PRECISION ENGINE: 600vh parent + sticky h-screen canvas
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -58,9 +59,11 @@ export default function ScrollyCanvas() {
       setLoaded(true);
     };
 
-    loadImages();
+    if (isEntered) {
+      loadImages();
+    }
 
-    // 3. Precision frame updates via scroll progress (Zero React State)
+    // 3. Zero-State 60fps drawing via motionValue subscription
     const unsubscribe = scrollYProgress.on("change", (latest) => {
       if (imagesRef.current.length === 0) return;
       
@@ -88,7 +91,7 @@ export default function ScrollyCanvas() {
       unsubscribe();
       window.removeEventListener("resize", handleResize);
     };
-  }, [scrollYProgress]);
+  }, [isEntered, scrollYProgress]);
 
   const draw = (img: HTMLImageElement) => {
     const canvas = canvasRef.current;
@@ -96,14 +99,12 @@ export default function ScrollyCanvas() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Set real canvas dimensions
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    // ABSOLUTE OBJECT-FIT COVER MATH
+    // OBJECT-FIT COVER MATH
     const canvasRatio = canvas.width / canvas.height;
     const imgRatio = img.width / img.height;
-
     let renderWidth, renderHeight, offsetX, offsetY;
 
     if (canvasRatio > imgRatio) {
@@ -124,22 +125,43 @@ export default function ScrollyCanvas() {
 
   return (
     <div ref={containerRef} className="relative h-[600vh] w-full bg-transparent">
+      
       {/* 
         PRECISION TECHNICAL RESTORATION:
-        - 600vh parent
-        - Sticky h-screen canvas (No-jank scrubbing)
-        - Sequential Text Overlay on z-20
+        - 600vh sticky parent
+        - Zero-State requestAnimationFrame logic
+        - z-10 Canvas + Sequential Overlay
       */}
-      <div className="sticky top-0 h-screen w-full overflow-visible bg-transparent z-10">
+      <div className="sticky top-0 h-screen w-full overflow-hidden bg-black z-10">
         <canvas
           ref={canvasRef}
           className="absolute inset-0 h-full w-full z-10"
         />
-        {/* Pass scrollYProgress to Overlay for synchronized text animations */}
         <div className="absolute inset-0 z-20 pointer-events-none">
           <Overlay scrollYProgress={scrollYProgress} />
         </div>
       </div>
+
+      <AnimatePresence>
+        {!isEntered && (
+          <motion.div 
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center p-4 text-center"
+          >
+            <h1 className="text-white font-display text-4xl md:text-8xl font-bold mb-12 tracking-tighter uppercase italic drop-shadow-2xl">
+              Precision <br />
+              <span className="text-cyan-400">Analysis</span>
+            </h1>
+            <button 
+              onClick={() => setIsEntered(true)}
+              className="group relative px-16 py-5 bg-white/5 border border-white/20 text-white font-mono uppercase tracking-[0.4em] overflow-hidden transition-all hover:bg-white hover:text-black hover:border-white"
+            >
+              <span className="relative z-10">Enter Portfolio</span>
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
