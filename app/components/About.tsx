@@ -29,7 +29,8 @@ export default function About() {
           transition={{ delay: 0.2, type: "spring", stiffness: 120, damping: 10 }}
         >
           <motion.a 
-            href="#" 
+            href="https://github.com/HeelSoni" 
+            target="_blank" rel="noopener noreferrer"
             whileHover={{ scale: 1.15, y: -5, boxShadow: "0 10px 25px -5px rgba(255,255,255,0.4)" }}
             whileTap={{ scale: 0.95 }}
             className="p-4 glass rounded-full hover:bg-white hover:text-black transition-colors duration-300 flex items-center justify-center relative overflow-hidden group"
@@ -38,7 +39,8 @@ export default function About() {
           </motion.a>
           
           <motion.a 
-            href="#" 
+            href="https://linkedin.com/in/heelsoni" 
+            target="_blank" rel="noopener noreferrer"
             whileHover={{ scale: 1.15, y: -5, boxShadow: "0 10px 25px -5px rgba(255,255,255,0.4)" }}
             whileTap={{ scale: 0.95 }}
             className="p-4 glass rounded-full hover:bg-white hover:text-black transition-colors duration-300 flex items-center justify-center relative overflow-hidden group"

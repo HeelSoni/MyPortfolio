@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Syne } from "next/font/google";
 import "./globals.css";
+import SmoothScroll from "./components/SmoothScroll";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const syne = Syne({ subsets: ["latin"], variable: "--font-syne" });
@@ -17,8 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${syne.variable} antialiased bg-[#050508] text-[#ededed]`}>
-      <body className="min-h-screen flex flex-col font-sans">
-        {children}
+      <body className="min-h-screen flex flex-col font-sans relative">
+        <SmoothScroll>
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   );

@@ -36,7 +36,8 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section id="work" className="py-32 px-6 container mx-auto max-w-6xl">
+    <section id="work" className="py-32 px-6 container mx-auto max-w-6xl relative">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] md:w-[600px] h-[600px] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none -z-10" />
       <motion.div 
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
