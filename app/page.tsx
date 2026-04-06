@@ -14,9 +14,8 @@ export default function Home() {
       {/* Hero scrollytelling canvas stays pinned */}
       <ScrollyCanvas />
 
-      {/* Post-Hero content area now hosts the DataBackground uniquely */}
-      <div className="relative z-20 bg-[#050508] overflow-hidden">
-        <DataBackground />
+      {/* Post-Hero content area */}
+      <div className="relative z-20 bg-[#050508]">
         <Projects />
         <Skills />
         <Experience />

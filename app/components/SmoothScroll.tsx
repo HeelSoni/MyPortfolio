@@ -31,5 +31,5 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     };
   }, []);
 
-  return <div className="relative z-0 antialiased overflow-hidden">{children}</div>;
+  return <div className="relative z-0 antialiased">{children}</div>;
 }

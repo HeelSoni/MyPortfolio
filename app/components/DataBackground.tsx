@@ -10,6 +10,9 @@ export default function DataBackground() {
   // Parallax for the overall grid
   const yParallax = useTransform(scrollYProgress, [0, 1], ["0%", "5%"]);
   
+  // FIXED: Ensure background only appears AFTER the hero sequence (approx 0.15 for 600vh/TOTAL)
+  const bgOpacity = useTransform(scrollYProgress, [0, 0.14, 0.18], [0, 0, 1]);
+  
   // Generate random 3D-moving particles (constellation nodes)
   const particles = useMemo(() => Array.from({ length: 50 }).map((_, i) => ({
     id: i,
@@ -23,7 +26,10 @@ export default function DataBackground() {
   })), []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none -z-50 overflow-hidden bg-[#050508] select-none perspective-normal">
+    <motion.div 
+      style={{ opacity: bgOpacity }}
+      className="fixed inset-0 pointer-events-none -z-50 overflow-hidden bg-[#050508] select-none perspective-normal"
+    >
       
       {/* Layer 1: Enhanced Visible Deep-Space Aura */}
       <motion.div 
@@ -102,6 +108,6 @@ export default function DataBackground() {
 
       {/* Global Vignette Filter */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(5,5,8,0.8)_100%)]" />
-    </div>
+    </motion.div>
   );
 }
