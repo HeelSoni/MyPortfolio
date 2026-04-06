@@ -13,7 +13,7 @@ export default function ScrollyCanvas() {
   const [loaded, setLoaded] = useState(false);
   const currentFrameRef = useRef(0);
 
-  // DEEP CINEMATIC SEQUENTIAL: 800vh for a professional, weighty scrollytelling experience.
+  // EXACT TECHNICAL BRIEF MATCH: 500vh parent + sticky h-screen canvas
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -64,7 +64,7 @@ export default function ScrollyCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    // Object-fit cover logic (ALL FRAMES COVER)
+    // Object-fit cover logic (All Frames Cover)
     const canvasRatio = canvas.width / canvas.height;
     const imgRatio = img.width / img.height;
 
@@ -103,12 +103,12 @@ export default function ScrollyCanvas() {
   });
 
   return (
-    <div ref={containerRef} className="relative h-[800vh] w-full bg-transparent">
+    <div ref={containerRef} className="relative h-[500vh] w-full bg-transparent">
       {/* 
-        SEQUENTIAL RESTORATION: Match exact previous intro flow.
-        - 800vh parent
-        - Sticky h-screen canvas (Pins correctly)
-        - 4-Station Overlay (Synced in Overlay.tsx)
+        EXACT BRIEF MATCH RESTORATION:
+        - 500vh parent
+        - Sticky h-screen canvas (Pins correctly for scrubbing)
+        - 4-Station sequential flow (Synced in Overlay.tsx)
       */}
       <div className="sticky top-0 h-screen w-full overflow-visible bg-transparent z-10">
         <canvas
@@ -116,7 +116,7 @@ export default function ScrollyCanvas() {
           className="absolute inset-0 h-full w-full z-10"
         />
         {/* Pass scrollYProgress to Overlay for synchronized text animations */}
-        <div className="absolute inset-0 z-20 pointer-events-none flex items-center justify-center">
+        <div className="absolute inset-0 z-20 pointer-events-none">
           <Overlay scrollYProgress={scrollYProgress} />
         </div>
       </div>

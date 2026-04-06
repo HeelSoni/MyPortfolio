@@ -22,47 +22,49 @@ export default function Overlay({ scrollYProgress }: { scrollYProgress: MotionVa
   return (
     <div className="absolute inset-0 z-10 pointer-events-none w-full h-full">
       
-      {/* 1st Station - Far Left */}
+      {/* 1st Station - Far Left: EXACT BRIEF MATCH */}
       <motion.div 
         style={{ opacity: opacity1, x: x1 }}
-        className="absolute top-[40%] md:top-1/2 -translate-y-1/2 left-[3%] md:left-[5%] max-w-[200px] md:max-w-[320px] text-left"
+        className="absolute top-[40%] md:top-1/2 -translate-y-1/2 left-[4%] md:left-[6%] max-w-[200px] md:max-w-[420px] text-left"
       >
-        <h1 className="font-display text-4xl md:text-6xl font-bold tracking-tight text-white drop-shadow-2xl leading-tight">
-          Heel Soni. <br />
-          <span className="text-cyan-400">Data Analyst.</span>
+        <h1 className="font-display text-4xl md:text-7xl font-bold tracking-tight text-white drop-shadow-2xl leading-[0.9]">
+          I AM HEEL SONI. <br />
+          <span className="text-cyan-400">STRATEGIC DATA ANALYSIS.</span>
         </h1>
       </motion.div>
 
       {/* 2nd Station - Far Right */}
       <motion.div 
         style={{ opacity: opacity2, x: x2 }}
-        className="absolute top-[40%] md:top-1/2 -translate-y-1/2 right-[3%] md:right-[5%] max-w-[200px] md:max-w-[320px] text-right"
+        className="absolute top-[40%] md:top-1/2 -translate-y-1/2 right-[4%] md:right-[6%] max-w-[200px] md:max-w-[420px] text-right"
       >
         <h2 className="font-display text-3xl md:text-5xl font-bold text-white drop-shadow-lg leading-tight">
-          I turn raw data <br />
-          <span className="text-cyan-400 font-mono italic">into decisions.</span>
+          Visualizing <br />
+          <span className="text-cyan-400 font-mono italic underline decoration-cyan-400/30 underline-offset-8">Complexity.</span>
         </h2>
       </motion.div>
 
       {/* 3rd Station - Far Left */}
       <motion.div 
         style={{ opacity: opacity3, x: x3 }}
-        className="absolute top-[40%] md:top-1/2 -translate-y-1/2 left-[3%] md:left-[5%] max-w-[200px] md:max-w-[320px] text-left"
+        className="absolute top-[40%] md:top-1/2 -translate-y-1/2 left-[4%] md:left-[6%] max-w-[200px] md:max-w-[420px] text-left"
       >
-        <h2 className="font-display text-3xl md:text-5xl font-bold text-white drop-shadow-lg leading-tight">
-          Uncovering <br />
-          <span className="text-cyan-400 font-mono italic">hidden patterns.</span>
+        <h2 className="font-display text-3xl md:text-6xl font-bold text-white drop-shadow-lg leading-tight">
+          Precision-Driven <br />
+          <span className="text-cyan-400 font-mono italic">Analytics.</span>
         </h2>
       </motion.div>
 
       {/* 4th Station - Far Right */}
       <motion.div 
         style={{ opacity: opacity4, x: x4 }}
-        className="absolute top-[40%] md:top-1/2 -translate-y-1/2 right-[3%] md:right-[5%] max-w-[200px] md:max-w-[320px] text-right"
+        className="absolute top-[40%] md:top-1/2 -translate-y-1/2 right-[4%] md:right-[6%] max-w-[200px] md:max-w-[420px] text-right"
       >
-        <h2 className="font-display text-3xl md:text-5xl font-bold text-white drop-shadow-lg leading-tight">
-          Bridging analytics <br />
-          <span className="text-cyan-400 font-mono italic">& strategy.</span>
+        <h2 className="font-display text-3xl md:text-6xl font-bold text-white drop-shadow-lg leading-tight">
+          Bridging Analytics <br />
+          <span className="text-cyan-400 font-mono italic decoration-cyan-400/30 underline-offset-8 underline leading-none">
+            & Strategy.
+          </span>
         </h2>
       </motion.div>
 
