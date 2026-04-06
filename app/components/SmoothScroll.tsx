@@ -9,7 +9,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
   useEffect(() => {
     // LUXURY SMOOTH SCROLL (Jesko Jets Style)
     const lenis = new Lenis({
-      duration: 1.0, // Standard responsive duration for perfect scrubbing
+      duration: 0.8, // Standard responsive duration for perfect scrubbing
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
       orientation: "vertical", 
       gestureOrientation: "vertical", 

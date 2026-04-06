@@ -103,7 +103,7 @@ export default function ScrollyCanvas() {
   });
 
   return (
-    <div ref={containerRef} className="relative h-[400vh] w-full bg-transparent">
+    <div ref={containerRef} className="relative h-[600vh] w-full bg-transparent">
       {/* 
         CINEMATIC RESTORATION: Match exact previous intro flow.
         Sticky container pins for the scrub, then moves away smoothly after 400vh.

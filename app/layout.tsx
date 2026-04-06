@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${syne.variable} antialiased bg-black text-[#ededed]`}>
-      <body className="min-h-screen flex flex-col font-sans relative bg-transparent">
+      <body className="min-h-screen font-sans relative bg-transparent">
         <Preloader />
         <DataBackground />
         <TacticalOverlay />
