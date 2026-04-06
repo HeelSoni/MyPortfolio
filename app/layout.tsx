@@ -20,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${syne.variable} antialiased bg-[#050508] text-[#ededed]`}>
-      <body className="min-h-screen flex flex-col font-sans relative">
+    <html lang="en" className={`${inter.variable} ${syne.variable} antialiased bg-[#020204] text-[#ededed]`}>
+      <body className="min-h-screen flex flex-col font-sans relative bg-transparent">
         <DataBackground />
         <CustomCursor />
         <ScrollProgress />
